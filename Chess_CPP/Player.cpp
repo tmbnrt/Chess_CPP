@@ -1,0 +1,133 @@
+#include "Player.h"
+#include "Character.h"
+#include "King.h"
+#include "Queen.h"
+#include "Bishop.h"
+#include "Rook.h"
+#include "Knight.h"
+#include "Pawn.h"
+#include<string>
+
+Player::Player() {}
+
+void Player::assign(std::string name, int id) {
+	this->name = name;
+	if (id == 1)
+		this->color = "White";
+	else
+		this->color = "Black";
+
+	initChars();
+
+	// count points
+	// ... loop
+}
+
+void Player::initChars() {
+	if (color == "White") {
+		this->king = King();
+		this->king.assign('K', 1);
+
+		this->queens = std::vector<Queen>{ Queen() };
+		this->queens[0].assign('D', 1);
+
+		this->rooks = std::vector<Rook>{ Rook(), Rook() };
+		this->rooks[0].assign('T', 1);
+		this->rooks[1].assign('T', 1);
+
+		this->knights = std::vector<Knight>{ Knight(), Knight() };
+		this->knights[0].assign('S', 1);
+		this->knights[1].assign('S', 1);
+
+		this->bishops = std::vector<Bishop>{ Bishop(), Bishop() };
+		this->bishops[0].assign('L', 1);
+		this->bishops[1].assign('L', 1);
+
+		this->pawns = std::vector<Pawn>{ Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn() };
+		for (int i = 0; i < pawns.size(); i++)
+			this->pawns[i].assign('B', 1);
+	}
+	else {
+		this->king = King();
+		this->king.assign('k', 2);
+
+		this->queens = std::vector<Queen> { Queen() };
+		this->queens[0].assign('d', 2);
+
+		this->rooks = std::vector<Rook>{ Rook(), Rook() };
+		this->rooks[0].assign('t', 2);
+		this->rooks[1].assign('t', 2);
+
+		this->knights = std::vector<Knight>{ Knight(), Knight() };
+		this->knights[0].assign('s', 2);
+		this->knights[1].assign('s', 2);
+
+		this->bishops = std::vector<Bishop>{ Bishop(), Bishop() };
+		this->bishops[0].assign('l', 2);
+		this->bishops[1].assign('l', 2);
+
+		this->pawns = std::vector<Pawn>{ Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn() };
+		for (int i = 0; i < pawns.size(); i++)
+			this->pawns[i].assign('b', 2);
+	}
+}
+
+std::vector<std::vector<Character*>> Player::putChars(std::vector<std::vector<Character*>> board) {
+	// STRUCTURE
+	// [0,0] [0,1] [0,2]
+	// [1,0] [1,1] [1,2]
+	// [2,0] [2,1] [2,2]
+	if (color == "White") {
+		king.defPosition(std::vector<int> {7, 4});
+		board[7][4] = &king;
+		queens[0].defPosition(std::vector<int> {7, 3});
+		board[7][3] = &queens[0];
+		bishops[0].defPosition(std::vector<int> {7, 2});
+		board[7][2] = &bishops[0];
+		bishops[1].defPosition(std::vector<int> {7, 5});
+		board[7][5] = &bishops[1];
+		knights[0].defPosition(std::vector<int> {7, 1});
+		board[7][1] = &knights[0];
+		knights[1].defPosition(std::vector<int> {7, 6});
+		board[7][6] = &knights[1];
+		rooks[0].defPosition(std::vector<int> {7, 0});
+		board[7][0] = &rooks[0];
+		rooks[1].defPosition(std::vector<int> {7, 7});
+		board[7][7] = &rooks[1];		
+		for (int i = 0; i < pawns.size(); i++) {
+			pawns[i].defPosition(std::vector<int> {6, i});
+			board[6][i] = &pawns[i];			
+		}			
+	}
+	else {
+		king.defPosition(std::vector<int> {0, 4});
+		board[0][4] = &king;
+		queens[0].defPosition(std::vector<int> {0, 3});
+		board[0][3] = &queens[0];
+		bishops[0].defPosition(std::vector<int> {0, 2});
+		board[0][2] = &bishops[0];
+		bishops[1].defPosition(std::vector<int> {0, 5});
+		board[0][5] = &bishops[1];
+		knights[0].defPosition(std::vector<int> {0, 1});
+		board[0][1] = &knights[0];
+		knights[1].defPosition(std::vector<int> {0, 6});
+		board[0][6] = &knights[1];
+		rooks[0].defPosition(std::vector<int> {0, 0});
+		board[0][0] = &rooks[0];
+		rooks[1].defPosition(std::vector<int> {0, 7});
+		board[0][7] = &rooks[1];		
+		for (int i = 0; i < pawns.size(); i++) {
+			pawns[i].defPosition(std::vector<int> {1, i});
+			board[1][i] = &pawns[i];			
+		}
+	}
+
+	return board;
+}
+
+void Player::kill(std::vector<int> pos) {
+	// loop through characters and delete character with designatuion "c"
+	// ...
+}
+
+Player::~Player() {}
