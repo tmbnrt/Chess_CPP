@@ -9,7 +9,7 @@ char Knight::getDesignation() const {
 	return designation;
 }
 
-void Knight::checkMoves(std::vector<std::vector<Character*>> board) {
+void Knight::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {
 	this->moves.clear();
 	this->kills.clear();
 
@@ -18,16 +18,93 @@ void Knight::checkMoves(std::vector<std::vector<Character*>> board) {
 	if (player == 1)
 		enemy = 2;
 	
-	/*
-	// pos col
-	std::vector<int> newPos = std::vector<int>{ position[0], position[1] + 1 };
-	if (newPos[1] < 8) {
-		if (playersPositions[newPos[0]][newPos[1]] == enemy && action.noChess(newPos))
-			action.addKill(newPos);
-		else if (playersPositions[newPos[0]][newPos[1]] != player && action.noChess(newPos))
-			action.addMove(newPos);
+	std::vector<int> newPos;
+
+	// row pos, right
+	newPos = std::vector<int>{ position[0] + 2, position[1] + 1 };
+	if (newPos[0] < 8 && newPos[1] < 8) {
+		if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] == enemy)
+			this->kills.push_back(newPos);
 	}
-	*/
+
+	// row pos, left
+	newPos = std::vector<int>{ position[0] + 2, position[1] - 1 };
+	if (newPos[0] < 8 && newPos[1] >= 0) {
+		if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] == enemy)
+			this->kills.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
+			this->moves.push_back(newPos);
+	}
+
+	// row neg, right
+	newPos = std::vector<int>{ position[0] - 2, position[1] + 1 };
+	if (newPos[0] >= 0 && newPos[1] < 8) {
+		if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] == enemy)
+			this->kills.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
+			this->moves.push_back(newPos);
+	}
+
+	// row neg, left
+	newPos = std::vector<int>{ position[0] - 2, position[1] - 1 };
+	if (newPos[0] >= 0 && newPos[1] >= 0) {
+		if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] == enemy)
+			this->kills.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
+			this->moves.push_back(newPos);
+	}
+
+	// right, up
+	newPos = std::vector<int>{ position[0] - 1, position[1] + 2 };
+	if (newPos[0] >= 0 && newPos[1] < 8) {
+		if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] == enemy)
+			this->kills.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
+			this->moves.push_back(newPos);
+	}
+
+	// right, down
+	newPos = std::vector<int>{ position[0] + 1, position[1] + 2 };
+	if (newPos[0] < 8 && newPos[1] < 8) {
+		if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] == enemy)
+			this->kills.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
+			this->moves.push_back(newPos);
+	}
+
+	// left, up
+	newPos = std::vector<int>{ position[0] - 1, position[1] - 2 };
+	if (newPos[0] >= 0 && newPos[1] >= 0) {
+		if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] == enemy)
+			this->kills.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
+			this->moves.push_back(newPos);
+	}
+
+	// left, down
+	newPos = std::vector<int>{ position[0] + 1, position[1] - 2 };
+	if (newPos[0] < 8 && newPos[1] >= 0) {
+		if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] == enemy)
+			this->kills.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
+			this->moves.push_back(newPos);
+	}
 }
 
 Knight::~Knight() {}

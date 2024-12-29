@@ -16,7 +16,7 @@ char Character::getDesignation() const {
 	return designation;
 }
 
-void Character::checkMoves(std::vector<std::vector<Character*>> board) {}
+void Character::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {}
 
 int Character::getPlayer() const {
     return player;
@@ -43,8 +43,16 @@ std::vector<std::vector<int>> Character::getKills() {
     return kills;
 }
 
+void Character::delMoves() {
+    this->moves.clear();
+}
+
+void Character::delKills() {
+    this->kills.clear();
+}
+
 void Character::getPlayersPositions(std::vector<std::vector<Character*>> board) {
-    bool print = true;
+    bool print = false;
     std::vector<std::vector<int>> field(8, std::vector<int>(8));
     this->playersPositions = field;
 
@@ -52,15 +60,17 @@ void Character::getPlayersPositions(std::vector<std::vector<Character*>> board) 
         for (int j = 0; j < board[0].size(); j++) {
             if (board[i][j] != nullptr)
                 this->playersPositions[i][j] = board[i][j]->getPlayer();
-                //this->playersPositions[i][j] = board[i][j]->getPlayer(board[i][j]);
             else
                 this->playersPositions[i][j] = 0;
 
             if (print)
                 std::cout << " " << playersPositions[i][j] << " ";
         }
-        std::cout << std::endl;
+        if (print)
+            std::cout << std::endl;
     }
+    if (print)
+        std::cout << std::endl;
 }
 
 std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Character*>> board, std::vector<int> target) {

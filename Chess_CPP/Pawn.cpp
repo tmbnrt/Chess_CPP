@@ -9,7 +9,7 @@ char Pawn::getDesignation() const {
 	return designation;
 }
 
-void Pawn::checkMoves(std::vector<std::vector<Character*>> board) {
+void Pawn::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {
 	this->moves.clear();
 	this->kills.clear();
 

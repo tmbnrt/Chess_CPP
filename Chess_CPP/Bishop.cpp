@@ -9,7 +9,7 @@ char Bishop::getDesignation() const {
 	return designation;
 }
 
-void Bishop::checkMoves(std::vector<std::vector<Character*>> board) {
+void Bishop::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {
 	this->moves.clear();
 	this->kills.clear();
 
@@ -22,8 +22,11 @@ void Bishop::checkMoves(std::vector<std::vector<Character*>> board) {
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0] + i, position[1] + i };
 		if (newPos[0] < 8 && newPos[1] < 8) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
@@ -36,8 +39,11 @@ void Bishop::checkMoves(std::vector<std::vector<Character*>> board) {
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0] - i, position[1] + i };
 		if (newPos[0] >= 0 && newPos[1] < 8) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
@@ -50,8 +56,11 @@ void Bishop::checkMoves(std::vector<std::vector<Character*>> board) {
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0] + i, position[1] - i };
 		if (newPos[0] < 8 && newPos[1] >= 0) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
@@ -64,8 +73,11 @@ void Bishop::checkMoves(std::vector<std::vector<Character*>> board) {
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0] - i, position[1] - i };
 		if (newPos[0] >= 0 && newPos[1] >= 0) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;

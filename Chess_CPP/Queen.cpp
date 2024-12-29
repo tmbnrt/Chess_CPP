@@ -5,7 +5,7 @@ Queen::Queen() {
 	this->countMoves = 0;
 }
 
-void Queen::checkMoves(std::vector<std::vector<Character*>> board) {
+void Queen::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {
 	this->moves.clear();
 	this->kills.clear();
 
@@ -18,8 +18,11 @@ void Queen::checkMoves(std::vector<std::vector<Character*>> board) {
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0], position[1] + i };
 		if (newPos[1] < 8) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
@@ -32,8 +35,11 @@ void Queen::checkMoves(std::vector<std::vector<Character*>> board) {
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0], position[1] - i };
 		if (newPos[1] >= 0) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
@@ -45,9 +51,12 @@ void Queen::checkMoves(std::vector<std::vector<Character*>> board) {
 	// pos row
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0] + i, position[1] };
-		if (newPos[1] < 8) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+		if (newPos[0] < 8) {
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
@@ -59,9 +68,12 @@ void Queen::checkMoves(std::vector<std::vector<Character*>> board) {
 	// neg row
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0] - i, position[1] };
-		if (newPos[1] >= 0) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+		if (newPos[0] >= 0) {
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
@@ -74,8 +86,11 @@ void Queen::checkMoves(std::vector<std::vector<Character*>> board) {
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0] + i, position[1] + i };
 		if (newPos[0] < 8 && newPos[1] < 8) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
@@ -88,8 +103,11 @@ void Queen::checkMoves(std::vector<std::vector<Character*>> board) {
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0] - i, position[1] + i };
 		if (newPos[0] >= 0 && newPos[1] < 8) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
@@ -102,8 +120,11 @@ void Queen::checkMoves(std::vector<std::vector<Character*>> board) {
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0] + i, position[1] - i };
 		if (newPos[0] < 8 && newPos[1] >= 0) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
@@ -116,8 +137,11 @@ void Queen::checkMoves(std::vector<std::vector<Character*>> board) {
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0] - i, position[1] - i };
 		if (newPos[0] >= 0 && newPos[1] >= 0) {
-			if (playersPositions[newPos[0]][newPos[1]] == player)
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
 				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;

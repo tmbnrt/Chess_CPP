@@ -14,6 +14,7 @@ public:
 	std::vector<std::vector<int>>				getDangerZone();
 	void										updateDangerZone(std::vector<std::vector<int>> enemyMoves, std::vector<std::vector<int>> zone);
 	void										updateDangerZonePawns(std::vector<std::vector<int>> zone, int i, int j, int player);
+	void										updateDangerZoneKing(std::vector<std::vector<int>> zone, int i, int j);
 	void										createDangerZone(std::vector<std::vector<Character*>> board, int player);
 	bool										noChess(std::vector<int> kingPos);
 

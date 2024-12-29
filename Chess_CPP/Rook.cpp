@@ -9,7 +9,7 @@ char Rook::getDesignation() const {
 	return designation;
 }
 
-void Rook::checkMoves(std::vector<std::vector<Character*>> board) {
+void Rook::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {
 	this->moves.clear();
 	this->kills.clear();
 
@@ -19,17 +19,19 @@ void Rook::checkMoves(std::vector<std::vector<Character*>> board) {
 		enemy = 2;
 	
 	// pos col
-	for (int i = 1; i < 8; i++)	{
-		std::vector<int> newPos = std::vector<int> { position[0], position[1] + i };
+	for (int i = 1; i < 8; i++) {
+		std::vector<int> newPos = std::vector<int>{ position[0], position[1] + i };
 		if (newPos[1] < 8) {
-			if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
-				this->moves.push_back(newPos);
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
+				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
 			}
-			if (playersPositions[newPos[0]][newPos[1]] == player)
-				break;
+			this->moves.push_back(newPos);
 		}
 	}
 
@@ -37,44 +39,50 @@ void Rook::checkMoves(std::vector<std::vector<Character*>> board) {
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0], position[1] - i };
 		if (newPos[1] >= 0) {
-			if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
-				this->moves.push_back(newPos);
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
+				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
 			}
-			if (playersPositions[newPos[0]][newPos[1]] == player)
-				break;
+			this->moves.push_back(newPos);
 		}
 	}
 
 	// pos row
 	for (int i = 1; i < 8; i++) {
-		std::vector<int> newPos = std::vector<int>{ position[0] + i, position[1]};
-		if (newPos[1] < 8) {
-			if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
-				this->moves.push_back(newPos);
+		std::vector<int> newPos = std::vector<int>{ position[0] + i, position[1] };
+		if (newPos[0] < 8) {
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
+				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
 			}
-			if (playersPositions[newPos[0]][newPos[1]] == player)
-				break;
+			this->moves.push_back(newPos);
 		}
 	}
 
 	// neg row
 	for (int i = 1; i < 8; i++) {
 		std::vector<int> newPos = std::vector<int>{ position[0] - i, position[1] };
-		if (newPos[1] >= 0) {
-			if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
-				this->moves.push_back(newPos);
+		if (newPos[0] >= 0) {
+			if (playersPositions[newPos[0]][newPos[1]] == player) {
+				if (friendlyFire)
+					this->moves.push_back(newPos);
+				break;
+			}
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
 				this->kills.push_back(newPos);
 				break;
 			}
-			if (playersPositions[newPos[0]][newPos[1]] == player)
-				break;
+			this->moves.push_back(newPos);
 		}
 	}
 }

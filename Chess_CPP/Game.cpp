@@ -41,14 +41,22 @@ int Game::start() {
     while (active) {
 
         // test move figure:  figure at pos[0][0] chosen in GUI --> move this figure to new target
-        //this->board = board[7][3]->move(board, std::vector<int> {4, 3});
-        //this->board = board[1][1]->move(board, std::vector<int> {2, 1});
+        this->board = board[0][5]->move(board, std::vector<int> {4, 5});
+        this->board = board[7][4]->move(board, std::vector<int> {4, 3});
+        this->board = board[1][3]->move(board, std::vector<int> {3, 3});
+        this->board = board[0][3]->move(board, std::vector<int> {2, 6});
+        this->board = board[0][1]->move(board, std::vector<int> {1, 3});
 
         // print board to console
-        test_print(board);
-        
-        //Action allowed2 = board[1][1]->checkMoves(board);
-        //Action allowed1 = board[4][3]->checkMoves(board);
+        test_print(board);   
+
+        board[4][3]->checkMoves(board);
+        //board[5][5]->checkMoves(board);
+
+        std::vector<std::vector<int>> king_moves = board[4][3]->getMoves();
+        std::vector<std::vector<int>> king_kills = board[4][3]->getKills();
+        //std::vector<std::vector<int>> queen_moves = board[5][5]->getMoves();
+        //std::vector<std::vector<int>> queen_kills = board[5][5]->getKills();
 
         active = false;
     }

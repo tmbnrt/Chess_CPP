@@ -29,7 +29,7 @@ public:
 	virtual ~Character();
 	virtual void								assign(char c, int p);
 	virtual char								getDesignation() const;
-	virtual void								checkMoves(std::vector<std::vector<Character*>> board);
+	virtual void								checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire = false);
 	int											getPoints();
 	int											numberOfMoves();
 	int											getPlayer() const;
@@ -37,6 +37,8 @@ public:
 	std::vector<std::vector<Character*>>		move(std::vector<std::vector<Character*>> board, std::vector<int> target);
 	std::vector<std::vector<int>>				getMoves();
 	std::vector<std::vector<int>>				getKills();
+	void										delMoves();
+	void										delKills();
 };
 
 #endif // CHARACTER_H

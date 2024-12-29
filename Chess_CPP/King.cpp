@@ -6,7 +6,7 @@ King::King() {
 	DangerZone dangerZone = DangerZone();
 }
 
-void King::checkMoves(std::vector<std::vector<Character*>> board) {
+void King::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {
 	this->moves.clear();
 	this->kills.clear();
 
@@ -17,8 +17,6 @@ void King::checkMoves(std::vector<std::vector<Character*>> board) {
 	if (player == 1)
 		enemy = 2;
 
-	// Check forbidden moves (Chess)
-	std::vector<std::vector<int>> chess;
 	std::vector<int> newPos;
 
 	// pos col
@@ -27,6 +25,8 @@ void King::checkMoves(std::vector<std::vector<Character*>> board) {
 		if (playersPositions[newPos[0]][newPos[1]] == enemy && dangerZone.noChess(newPos))
 			this->kills.push_back(newPos);
 		else if (playersPositions[newPos[0]][newPos[1]] != player && dangerZone.noChess(newPos))
+			this->moves.push_back(newPos);
+		else if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
 			this->moves.push_back(newPos);
 	}
 
@@ -37,8 +37,9 @@ void King::checkMoves(std::vector<std::vector<Character*>> board) {
 			this->kills.push_back(newPos);
 		else if (playersPositions[newPos[0]][newPos[1]] != player && dangerZone.noChess(newPos))
 			this->moves.push_back(newPos);
+		else if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
 	}
-	
 
 	// pos row
 	newPos = std::vector<int>{ position[0] + 1, position[1] };
@@ -46,6 +47,8 @@ void King::checkMoves(std::vector<std::vector<Character*>> board) {
 		if (playersPositions[newPos[0]][newPos[1]] == enemy && dangerZone.noChess(newPos))
 			this->kills.push_back(newPos);
 		else if (playersPositions[newPos[0]][newPos[1]] != player && dangerZone.noChess(newPos))
+			this->moves.push_back(newPos);
+		else if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
 			this->moves.push_back(newPos);
 	}
 
@@ -56,6 +59,8 @@ void King::checkMoves(std::vector<std::vector<Character*>> board) {
 			this->kills.push_back(newPos);
 		else if (playersPositions[newPos[0]][newPos[1]] != player && dangerZone.noChess(newPos))
 			this->moves.push_back(newPos);
+		else if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
 	}
 
 	// SE
@@ -64,6 +69,8 @@ void King::checkMoves(std::vector<std::vector<Character*>> board) {
 		if (playersPositions[newPos[0]][newPos[1]] == enemy && dangerZone.noChess(newPos))
 			this->kills.push_back(newPos);
 		else if (playersPositions[newPos[0]][newPos[1]] != player && dangerZone.noChess(newPos))
+			this->moves.push_back(newPos);
+		else if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
 			this->moves.push_back(newPos);
 	}
 
@@ -74,8 +81,9 @@ void King::checkMoves(std::vector<std::vector<Character*>> board) {
 			this->kills.push_back(newPos);
 		else if (playersPositions[newPos[0]][newPos[1]] != player && dangerZone.noChess(newPos))
 			this->moves.push_back(newPos);
+		else if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
 	}
-	
 
 	// SW
 	newPos = std::vector<int>{ position[0] + 1, position[1] - 1 };
@@ -84,7 +92,9 @@ void King::checkMoves(std::vector<std::vector<Character*>> board) {
 			this->kills.push_back(newPos);
 		else if (playersPositions[newPos[0]][newPos[1]] != player && dangerZone.noChess(newPos))
 			this->moves.push_back(newPos);
-	}	
+		else if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
+			this->moves.push_back(newPos);
+	}
 
 	// NW
 	newPos = std::vector<int>{ position[0] - 1, position[1] - 1 };
@@ -92,6 +102,8 @@ void King::checkMoves(std::vector<std::vector<Character*>> board) {
 		if (playersPositions[newPos[0]][newPos[1]] == enemy && dangerZone.noChess(newPos))
 			this->kills.push_back(newPos);
 		else if (playersPositions[newPos[0]][newPos[1]] != player && dangerZone.noChess(newPos))
+			this->moves.push_back(newPos);
+		else if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
 			this->moves.push_back(newPos);
 	}
 }
