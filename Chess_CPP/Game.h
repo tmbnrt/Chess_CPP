@@ -5,6 +5,8 @@
 // ===========================================================================
 #include "Player.h"
 #include "Character.h"
+#include "Action.h"
+#include "Test.h"
 #include<vector>
 
 class Game
