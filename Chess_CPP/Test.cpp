@@ -15,7 +15,7 @@ std::vector<std::vector<Character*>> Test::move(std::vector<std::vector<Characte
 }
 
 void Test::possibleMoves(std::vector<std::vector<Character*>> board) {
-	// CHECK POSSIBILITIES
+	// CHECK POSSIBLE MOVES
 	board[4][3]->checkMoves(board);
 	//board[5][5]->checkMoves(board);
 
