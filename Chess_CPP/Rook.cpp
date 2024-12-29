@@ -1,5 +1,4 @@
 #include "Rook.h"
-#include "Action.h"
 
 Rook::Rook() {
 	this->points = 5;
@@ -7,12 +6,12 @@ Rook::Rook() {
 }
 
 char Rook::getDesignation() const {
-	return this->designation;
+	return designation;
 }
 
-Action Rook::checkMoves(std::vector<std::vector<Character*>> board) {
-	std::vector<std::vector<int>> allowedMoves;
-	Action action = Action();
+void Rook::checkMoves(std::vector<std::vector<Character*>> board) {
+	this->moves.clear();
+	this->kills.clear();
 
 	getPlayersPositions(board);
 	int enemy = 1;
@@ -24,9 +23,9 @@ Action Rook::checkMoves(std::vector<std::vector<Character*>> board) {
 		std::vector<int> newPos = std::vector<int> { position[0], position[1] + i };
 		if (newPos[1] < 8) {
 			if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
-				action.addMove(newPos);
+				this->moves.push_back(newPos);
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
-				action.addKill(newPos);
+				this->kills.push_back(newPos);
 				break;
 			}
 			if (playersPositions[newPos[0]][newPos[1]] == player)
@@ -39,9 +38,9 @@ Action Rook::checkMoves(std::vector<std::vector<Character*>> board) {
 		std::vector<int> newPos = std::vector<int>{ position[0], position[1] - i };
 		if (newPos[1] >= 0) {
 			if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
-				action.addMove(newPos);
+				this->moves.push_back(newPos);
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
-				action.addKill(newPos);
+				this->kills.push_back(newPos);
 				break;
 			}
 			if (playersPositions[newPos[0]][newPos[1]] == player)
@@ -54,9 +53,9 @@ Action Rook::checkMoves(std::vector<std::vector<Character*>> board) {
 		std::vector<int> newPos = std::vector<int>{ position[0] + i, position[1]};
 		if (newPos[1] < 8) {
 			if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
-				action.addMove(newPos);
+				this->moves.push_back(newPos);
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
-				action.addKill(newPos);
+				this->kills.push_back(newPos);
 				break;
 			}
 			if (playersPositions[newPos[0]][newPos[1]] == player)
@@ -69,18 +68,15 @@ Action Rook::checkMoves(std::vector<std::vector<Character*>> board) {
 		std::vector<int> newPos = std::vector<int>{ position[0] - i, position[1] };
 		if (newPos[1] >= 0) {
 			if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
-				action.addMove(newPos);
+				this->moves.push_back(newPos);
 			if (playersPositions[newPos[0]][newPos[1]] == enemy) {
-				action.addKill(newPos);
+				this->kills.push_back(newPos);
 				break;
 			}
 			if (playersPositions[newPos[0]][newPos[1]] == player)
 				break;
 		}
 	}
-
-	return action;
 }
 
-Rook::~Rook() {
-};
+Rook::~Rook() {}

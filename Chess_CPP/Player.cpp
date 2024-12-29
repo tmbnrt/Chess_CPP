@@ -1,11 +1,5 @@
 #include "Player.h"
-#include "Character.h"
-#include "King.h"
-#include "Queen.h"
-#include "Bishop.h"
-#include "Rook.h"
-#include "Knight.h"
-#include "Pawn.h"
+
 #include<string>
 
 Player::Player() {}

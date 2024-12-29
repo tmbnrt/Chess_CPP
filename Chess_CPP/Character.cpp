@@ -1,22 +1,24 @@
 #include "Character.h"
-#include "Action.h"
-#include<vector>
+
 #include<iostream>
 
 Character::Character() {
-    this->countMoves = 0;
+    this->points = int();
+    this->countMoves = int();
+    this->designation = char();
+    this->player = int();
+
+    std::vector<std::vector<int>> chessZone(8, std::vector<int>(8));
+    this->chessZone = chessZone;
 }
 
-// ... can be overwritten in derived class (therefore virtual)
 char Character::getDesignation() const {
 	return designation;
 }
 
-Action Character::checkMoves(std::vector<std::vector<Character*>> board) {
-    return Action();
-}
+void Character::checkMoves(std::vector<std::vector<Character*>> board) {}
 
-int Character::getPlayer(Character*) const {
+int Character::getPlayer() const {
     return player;
 }
 
@@ -33,6 +35,14 @@ void Character::defPosition(std::vector<int> pos) {
     this->position = pos;
 }
 
+std::vector<std::vector<int>> Character::getMoves() {
+    return moves;
+}
+
+std::vector<std::vector<int>> Character::getKills() {
+    return kills;
+}
+
 void Character::getPlayersPositions(std::vector<std::vector<Character*>> board) {
     bool print = true;
     std::vector<std::vector<int>> field(8, std::vector<int>(8));
@@ -41,7 +51,8 @@ void Character::getPlayersPositions(std::vector<std::vector<Character*>> board) 
     for (int i = 0; i < board.size(); i++) {
         for (int j = 0; j < board[0].size(); j++) {
             if (board[i][j] != nullptr)
-                this->playersPositions[i][j] = board[i][j]->getPlayer(board[i][j]);
+                this->playersPositions[i][j] = board[i][j]->getPlayer();
+                //this->playersPositions[i][j] = board[i][j]->getPlayer(board[i][j]);
             else
                 this->playersPositions[i][j] = 0;
 
@@ -66,4 +77,4 @@ int Character::getPoints() {
     return points;
 }
 
-Character::~Character() {};
+Character::~Character() {}

@@ -1,20 +1,16 @@
 #ifndef QUEEN_H
 #define QUEEN_H
 
-#include<string>
-#include<vector>
 #include "Character.h"
+#include<vector>
 
 class Queen : public Character
 {
 public:
     Queen();
     ~Queen() override;
-    char                                        getDesignation() const override;
-    //std::vector<std::vector<int>>               checkMoves(std::vector<std::vector<Character>> board);  // returns possible movement positions
-
-private:
-
+    char                                        getDesignation() const override ;
+    void                                        checkMoves(std::vector<std::vector<Character*>> board) override ;
 };
 
 #endif

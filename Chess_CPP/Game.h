@@ -5,7 +5,6 @@
 // ===========================================================================
 #include "Player.h"
 #include "Character.h"
-#include "Action.h"
 #include<vector>
 
 class Game
@@ -20,7 +19,7 @@ public:
 	int											start();
 
 private:	
-	void										initBoard(std::vector<std::vector<Character>>& board);
+	//void										initBoard(std::vector<std::vector<Character>>& board);
 	void										initPlayer(std::string name_1, std::string name_2);
 
 

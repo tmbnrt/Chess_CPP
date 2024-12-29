@@ -1,20 +1,19 @@
 #ifndef KING_H
 #define KING_H
 
-#include<string>
-#include<vector>
 #include "Character.h"
+#include<vector>
 
 class King : public Character
 {
 public:
     King();
-    ~King() override;
-    char                                        getDesignation() const override;
-    //std::vector<std::vector<int>>               checkMoves(std::vector<std::vector<Character>> board);  // returns possible movement positions
+    ~King() override ;
+    char                                        getDesignation() const override ;
+    void                                        checkMoves(std::vector<std::vector<Character*>> board) override ;
 
 private:
-    bool										initMove;
+    DangerZone									dangerZone;
 };
 
 #endif

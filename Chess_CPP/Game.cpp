@@ -1,10 +1,6 @@
 #include "Game.h"
-#include "Character.h"
-#include "Player.h"
-#include "Action.h"
 
 #include <iostream>
-#include <vector>
 #include <string>
 
 Game::Game() {}
@@ -45,17 +41,14 @@ int Game::start() {
     while (active) {
 
         // test move figure:  figure at pos[0][0] chosen in GUI --> move this figure to new target
-        this->board = board[6][2]->move(board, std::vector<int> {3, 2});
-        this->board = board[1][1]->move(board, std::vector<int> {2, 1});
+        //this->board = board[7][3]->move(board, std::vector<int> {4, 3});
+        //this->board = board[1][1]->move(board, std::vector<int> {2, 1});
 
         // print board to console
         test_print(board);
-
+        
         //Action allowed2 = board[1][1]->checkMoves(board);
-        Action allowed1 = board[2][1]->checkMoves(board);
-
-        // test - enemym friendly - position
-        //this->board[1][1]->getPlayersPositions(board);
+        //Action allowed1 = board[4][3]->checkMoves(board);
 
         active = false;
     }
