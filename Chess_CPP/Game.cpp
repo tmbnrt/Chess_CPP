@@ -1,10 +1,8 @@
 #include "Game.h"
 
-#include <iostream>
-#include <string>
-
 Game::Game() {}
 
+/*
 static void test_print(std::vector<std::vector<Character*>> board) {
     for (int i = 0; i < board.size(); i++) {
         std::cout << (i + 1) << "| ";
@@ -21,7 +19,7 @@ static void test_print(std::vector<std::vector<Character*>> board) {
     std::cout << "    ______________________" << std::endl;
     std::cout << "    A  B  C  D  E  F  G  H" << std::endl;
     std::cout << std::endl;
-}
+}*/
 
 void Game::initPlayer(std::string name_1, std::string name_2) {
     this->white = Player();
@@ -35,15 +33,14 @@ int Game::start() {
     std::vector<std::vector<Character*>> init_board(8, std::vector<Character*>(8));
     this->board = init_board;
 
-    std::vector<std::vector<std::vector<int>>> moves = std::vector<std::vector<std::vector<int>>>();
-    std::vector<std::vector<std::vector<int>>> kills = std::vector<std::vector<std::vector<int>>>();
-    std::vector<std::vector<int>> fig_mve;
-    std::vector<std::vector<int>> fig_kll;
-
     initPlayer("Player1", "Player2");
     this->board = white.putChars(this->board);
     this->board = black.putChars(this->board);
 
+    // Initialize player's possible moves
+    this->playerMoves = std::vector<PlayerMoves> { PlayerMoves(), PlayerMoves() };
+
+    // Initialize test engine
     Test test = Test();
 
     // Main loop
@@ -59,26 +56,16 @@ int Game::start() {
 
         // Get all possible moves of player
         // ... (input: moves, kills, player) --> for all remaining figures (loop)
-        moves.clear();
-        kills.clear();
-        for (int i = 0; i < board.size(); i++) {
-            for (int j = 0; j < board[0].size(); j++)
-                if (board[i][j]->getPlayer() == act_player) {
-                    fig_mve = board[i][j]->getMoves();
-                    fig_kll = board[i][j]->getMoves();
-                    moves.push_back(std::vector<>);
-                    kills.push_back();
-                    //... ERROR.. structure should be: Pos[][], pissobilities[][]
-                }
-        }
+        playerMoves[act_player - 1].checkMoves(board, act_player);
+        
 
         // Get the move from console input and move figure on board
-        action.updateMoves(moves, kills, act_player);
-        action.moveFromConsole(act_player);
-        std::vector<std::vector<int>> playerMove = action.getMoves(act_player);
+        //action.updateMoves(playerMoves[act_player - 1], act_player);
+        action.moveFromConsole(act_player, playerMoves[act_player - 1]);
+        //std::vector<std::vector<int>> playerMove = action.getMoves(act_player);
 
         // Move figure
-        board = board[playerMove[0][0]][playerMove[0][1]]->move(board, std::vector<int> {playerMove[1][0], playerMove[1][1]});
+        board = board[action.from[0]][action.from[1]]->move(board, std::vector<int> {action.to[0], action.to[1]});
 
         // OUTPUT POSSIBLE MOVES
         //test.possibleMoves(board);

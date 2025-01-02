@@ -27,6 +27,8 @@ void Knight::checkMoves(std::vector<std::vector<Character*>> board, bool friendl
 			this->moves.push_back(newPos);
 		if (playersPositions[newPos[0]][newPos[1]] == enemy)
 			this->kills.push_back(newPos);
+		if (playersPositions[newPos[0]][newPos[1]] != player && playersPositions[newPos[0]][newPos[1]] != enemy)
+			this->moves.push_back(newPos);
 	}
 
 	// row pos, left

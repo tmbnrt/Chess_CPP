@@ -43,7 +43,7 @@ void King::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyF
 
 	// pos row
 	newPos = std::vector<int>{ position[0] + 1, position[1] };
-	if (newPos[1] < 8) {
+	if (newPos[0] < 8) {
 		if (playersPositions[newPos[0]][newPos[1]] == enemy && dangerZone.noChess(newPos))
 			this->kills.push_back(newPos);
 		else if (playersPositions[newPos[0]][newPos[1]] != player && dangerZone.noChess(newPos))
@@ -54,7 +54,7 @@ void King::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyF
 
 	// neg row
 	newPos = std::vector<int>{ position[0] - 1, position[1] };
-	if (newPos[1] >= 0) {
+	if (newPos[0] >= 0) {
 		if (playersPositions[newPos[0]][newPos[1]] == enemy && dangerZone.noChess(newPos))
 			this->kills.push_back(newPos);
 		else if (playersPositions[newPos[0]][newPos[1]] != player && dangerZone.noChess(newPos))

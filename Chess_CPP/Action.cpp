@@ -1,8 +1,6 @@
 #include "Action.h"
 
-Action::Action() {
-	this->movesPlayer_1 = std::vector<std::vector<int>>();
-}
+Action::Action() {}
 
 std::vector<int> static getCoordsFromStr(std::string inp) {
 	std::vector<int> out = std::vector<int>();
@@ -16,19 +14,7 @@ std::vector<int> static getCoordsFromStr(std::string inp) {
 	return out;
 }
 
-bool Action::moveAllowed(std::vector<int> from, std::vector<int> to, int player) {
-	if (player == 1) {
-		for (int i = 0; i < movesPlayer_1.size(); i++) {
-			if (movesPlayer_1[i][0][0] == 1)
-		}
-
-	}
-	
-
-	return true;
-}
-
-void Action::moveFromConsole(int player) {
+void Action::moveFromConsole(int player, PlayerMoves& playerMoves) {
 	std::string actual, target;
 	std::string input;
 	
@@ -43,27 +29,25 @@ void Action::moveFromConsole(int player) {
 				std::cout << "Please give only two field coordinates, separated by whitespace.";
 			}
 			else {
-				std::vector<int> from = getCoordsFromStr(actual);
-				std::vector<int> to = getCoordsFromStr(target);
+				this->from = getCoordsFromStr(actual);
+				this-> to = getCoordsFromStr(target);
 
 				if (from[0] < 0 || from[1] < 0 || to[0] < 0 || to[1] < 0 || from[0] > 7 || from[1] > 7 || to[0] > 7 || to[1] > 7)
 					continue;
 
-				if (!moveAllowed(from, to, player))
+				if (!playerMoves.checkAllowed(from, to))
 					continue;
 
-				if (player == 1) {
+				/*
+				if (player == 1)
 					this->movesPlayer_1.clear();
-					this->movesPlayer_1.push_back(from);
-					this->movesPlayer_1.push_back(to);
-				}
-				else {
+				else
 					this->movesPlayer_2.clear();
-					this->movesPlayer_2.push_back(from);
-					this->movesPlayer_2.push_back(to);
-				}
+				*/
 
 				gotit = true;
+				playerMoves.addHistory(from, to);
+								
 				std::cout << std::endl;
 				std::cout << std::endl;
 			}		
@@ -92,21 +76,20 @@ void Action::printBoard(std::vector<std::vector<Character*>> board) {
 	std::cout << std::endl;
 }
 
+/*
 std::vector<std::vector<int>> Action::getMoves(int player) {
 	if (player == 1)
 		return movesPlayer_1;
 	else
 		return movesPlayer_2;
-}
+}*/
 
-void Action::updateMoves(std::vector<std::vector<int>> moves, std::vector<std::vector<int>> kills, int player) {
-	std::vector<std::vector<int>> allMoves = std::vector<std::vector<int>>();
-	allMoves.insert(allMoves.end(), moves.begin(), moves.end());
-	allMoves.insert(allMoves.end(), kills.begin(), kills.end());
+/*
+void Action::updateMoves(PlayerMoves playerMoves, int player) {
 	if (player == 1)
-		this->movesPlayer_1 = allMoves;
+		this->movesPlayer_1 = playerMoves;
 	else
-		this->movesPlayer_2 = allMoves;
-}
+		this->movesPlayer_2 = playerMoves;
+}*/
 
 Action::~Action(){}
