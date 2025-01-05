@@ -5,11 +5,15 @@ Pawn::Pawn() {
 	this->countMoves = 0;
 }
 
+//Pawn* Pawn::getCopy() const {
+//	return new Pawn(*this);
+//}
+
 char Pawn::getDesignation() const {
 	return designation;
 }
 
-void Pawn::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {
+void Pawn::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire, bool checkRescue) {
 	this->moves.clear();
 	this->kills.clear();
 

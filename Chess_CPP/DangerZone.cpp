@@ -82,6 +82,8 @@ void DangerZone::createDangerZone(std::vector<std::vector<Character*>> board, in
 			else {
 				board[i][j]->checkMoves(board, true);
 				std::vector<std::vector<int>> enemyMoves = board[i][j]->getMoves();
+				std::vector<std::vector<int>> enemyKills = board[i][j]->getKills();
+				enemyMoves.insert(enemyMoves.end(), enemyKills.begin(), enemyKills.end());
 				updateDangerZone(enemyMoves, dangerZone);
 				board[i][j]->delMoves();
 			}

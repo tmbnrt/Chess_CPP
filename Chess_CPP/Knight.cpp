@@ -5,11 +5,15 @@ Knight::Knight() {
 	this->countMoves = 0;
 }
 
+//Knight* Knight::getCopy() const {
+//	return new Knight(*this);
+//}
+
 char Knight::getDesignation() const {
 	return designation;
 }
 
-void Knight::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {
+void Knight::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire, bool checkRescue) {
 	this->moves.clear();
 	this->kills.clear();
 

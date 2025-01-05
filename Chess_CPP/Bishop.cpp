@@ -5,11 +5,15 @@ Bishop::Bishop() {
 	this->countMoves = 0;
 }
 
+//Bishop* Bishop::getCopy() const {
+//	return new Bishop(*this);
+//}
+
 char Bishop::getDesignation() const {
 	return designation;
 }
 
-void Bishop::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {
+void Bishop::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire, bool checkRescue) {
 	this->moves.clear();
 	this->kills.clear();
 

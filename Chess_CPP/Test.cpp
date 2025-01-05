@@ -5,11 +5,10 @@ Test::Test() {}
 
 std::vector<std::vector<Character*>> Test::move(std::vector<std::vector<Character*>> board) {
 	// TEST MOVES
-	board = board[0][5]->move(board, std::vector<int> {4, 5});
-	board = board[7][4]->move(board, std::vector<int> {4, 3});
-	board = board[1][3]->move(board, std::vector<int> {3, 3});
-	board = board[0][3]->move(board, std::vector<int> {2, 6});
-	board = board[0][1]->move(board, std::vector<int> {1, 3});
+	board = board[6][3]->move(board, std::vector<int> {5, 3});
+	board = board[1][2]->move(board, std::vector<int> {2, 2});
+	board = board[6][7]->move(board, std::vector<int> {5, 7});
+	board = board[0][3]->move(board, std::vector<int> {3, 0});
 
 	return board;
 }

@@ -27,9 +27,13 @@ protected:
 public:
 	Character();
 	virtual ~Character();
+	//virtual Character*							clone() const = 0;
+	//virtual Character* getCopy() const = 0;
 	virtual void								assign(char c, int p);
 	virtual char								getDesignation() const;
-	virtual void								checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire = false);
+	virtual void								checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire = false, bool checkrescue = true);
+	virtual std::vector<std::vector<int>>       getRescueMovesFrom() const;
+	virtual std::vector<std::vector<int>>       getRescueMovesTo() const;
 	int											getPoints();
 	int											numberOfMoves();
 	int											getPlayer() const;
@@ -39,6 +43,7 @@ public:
 	std::vector<std::vector<int>>				getKills();
 	void										delMoves();
 	void										delKills();
+	virtual bool								isChess() const;
 };
 
 #endif // CHARACTER_H

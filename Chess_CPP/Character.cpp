@@ -16,10 +16,23 @@ char Character::getDesignation() const {
 	return designation;
 }
 
-void Character::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {}
+std::vector<std::vector<int>> Character::getRescueMovesFrom() const {
+    return std::vector<std::vector<int>>();
+}
+
+std::vector<std::vector<int>> Character::getRescueMovesTo() const {
+    return std::vector<std::vector<int>>();
+}
+
+void Character::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire, bool checkRescue) {}
 
 int Character::getPlayer() const {
     return player;
+}
+
+bool Character::isChess() const {
+    if (points < 10)
+        return false;
 }
 
 int Character::numberOfMoves() {

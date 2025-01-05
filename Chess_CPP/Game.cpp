@@ -53,19 +53,18 @@ int Game::start() {
 
         // Print board to console
         action.printBoard(board);
-
+        
         // Get all possible moves of player
-        // ... (input: moves, kills, player) --> for all remaining figures (loop)
-        playerMoves[act_player - 1].checkMoves(board, act_player);
+        playerMoves[act_player - 1].checkPlayerMoves(board, act_player);
         
 
         // Get the move from console input and move figure on board
         //action.updateMoves(playerMoves[act_player - 1], act_player);
         action.moveFromConsole(act_player, playerMoves[act_player - 1]);
-        //std::vector<std::vector<int>> playerMove = action.getMoves(act_player);
-
-        // Move figure
         board = board[action.from[0]][action.from[1]]->move(board, std::vector<int> {action.to[0], action.to[1]});
+        //std::vector<std::vector<int>> playerMove = action.getMoves(act_player);
+        
+        
 
         // OUTPUT POSSIBLE MOVES
         //test.possibleMoves(board);

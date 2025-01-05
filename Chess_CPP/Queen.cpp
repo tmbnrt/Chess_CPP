@@ -5,7 +5,11 @@ Queen::Queen() {
 	this->countMoves = 0;
 }
 
-void Queen::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {
+//Queen* Queen::getCopy() const {
+//	return new Queen(*this);
+//}
+
+void Queen::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire, bool checkRescue) {
 	this->moves.clear();
 	this->kills.clear();
 

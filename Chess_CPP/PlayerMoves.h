@@ -12,14 +12,16 @@ public:
 	int											player;
 	bool										checkAllowed(std::vector<int> actual, std::vector<int> target);
 	void										clear();
-	void										checkMoves(std::vector<std::vector<Character*>> board, int player);
+	void										checkPlayerMoves(std::vector<std::vector<Character*>> board, int player);
 	void										addHistory(std::vector<int> actual, std::vector<int> target);
+	bool										isChess() const;
 
 private:
 	std::vector<std::vector<int>>				from;
 	std::vector<std::vector<int>>				to;
 	std::vector<std::vector<int>>				history_from;
 	std::vector<std::vector<int>>				history_to;
+	bool										chess;
 };
 
 #endif PLAYERMOVES_H

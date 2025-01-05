@@ -20,47 +20,59 @@ void Player::assign(std::string name, int id) {
 void Player::initChars() {
 	if (color == "White") {
 		this->king = King();
+		//this->king = new King();
 		this->king.assign('K', 1);
 
 		this->queens = std::vector<Queen>{ Queen() };
+		//this->queens = std::vector<Queen*>{ new Queen() };
 		this->queens[0].assign('D', 1);
 
 		this->rooks = std::vector<Rook>{ Rook(), Rook() };
+		//this->rooks = std::vector<Rook*>{ new Rook(), new Rook() };
 		this->rooks[0].assign('T', 1);
 		this->rooks[1].assign('T', 1);
 
 		this->knights = std::vector<Knight>{ Knight(), Knight() };
+		//this->knights = std::vector<Knight*>{ new Knight(), new Knight() };
 		this->knights[0].assign('S', 1);
 		this->knights[1].assign('S', 1);
 
 		this->bishops = std::vector<Bishop>{ Bishop(), Bishop() };
+		//this->bishops = std::vector<Bishop*>{ new Bishop(), new Bishop() };
 		this->bishops[0].assign('L', 1);
 		this->bishops[1].assign('L', 1);
 
 		this->pawns = std::vector<Pawn>{ Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn() };
+		//this->pawns = std::vector<Pawn*>{ new Pawn(), new Pawn(), new Pawn(), new Pawn(), new Pawn(), new Pawn(), new Pawn(), new Pawn() };
 		for (int i = 0; i < pawns.size(); i++)
 			this->pawns[i].assign('B', 1);
 	}
 	else {
 		this->king = King();
+		//this->king = new King();
 		this->king.assign('k', 2);
 
 		this->queens = std::vector<Queen> { Queen() };
+		//this->queens = std::vector<Queen*> { new Queen() };
 		this->queens[0].assign('d', 2);
 
 		this->rooks = std::vector<Rook>{ Rook(), Rook() };
+		//this->rooks = std::vector<Rook*>{ new Rook(), new Rook() };
 		this->rooks[0].assign('t', 2);
 		this->rooks[1].assign('t', 2);
 
 		this->knights = std::vector<Knight>{ Knight(), Knight() };
+		//this->knights = std::vector<Knight*>{ new Knight(), new Knight() };
 		this->knights[0].assign('s', 2);
 		this->knights[1].assign('s', 2);
 
 		this->bishops = std::vector<Bishop>{ Bishop(), Bishop() };
+		//this->bishops = std::vector<Bishop*>{ new Bishop(), new Bishop() };
 		this->bishops[0].assign('l', 2);
 		this->bishops[1].assign('l', 2);
 
 		this->pawns = std::vector<Pawn>{ Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn(), Pawn() };
+		//this->pawns = std::vector<Pawn*>{ new Pawn(), new Pawn(), new Pawn(), new Pawn(), new Pawn(), new Pawn(), new Pawn(), new Pawn() };
 		for (int i = 0; i < pawns.size(); i++)
 			this->pawns[i].assign('b', 2);
 	}
@@ -87,10 +99,10 @@ std::vector<std::vector<Character*>> Player::putChars(std::vector<std::vector<Ch
 		rooks[0].defPosition(std::vector<int> {7, 0});
 		board[7][0] = &rooks[0];
 		rooks[1].defPosition(std::vector<int> {7, 7});
-		board[7][7] = &rooks[1];		
+		board[7][7] = &rooks[1];
 		for (int i = 0; i < pawns.size(); i++) {
 			pawns[i].defPosition(std::vector<int> {6, i});
-			board[6][i] = &pawns[i];			
+			board[6][i] = &pawns[i];
 		}			
 	}
 	else {

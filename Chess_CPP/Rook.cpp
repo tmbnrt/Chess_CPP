@@ -5,11 +5,15 @@ Rook::Rook() {
 	this->countMoves = 0;
 }
 
+//Rook* Rook::getCopy() const {
+//	return new Rook(*this);
+//}
+
 char Rook::getDesignation() const {
 	return designation;
 }
 
-void Rook::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire) {
+void Rook::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire, bool checkRescue) {
 	this->moves.clear();
 	this->kills.clear();
 
