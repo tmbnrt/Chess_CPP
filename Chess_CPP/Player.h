@@ -27,6 +27,7 @@ public:
 	std::string									color;
 	std::string									name;
 	std::vector<std::vector<Character*>>		putChars(std::vector<std::vector<Character*>> board);
+	//std::vector<std::vector<Character*>>		copy_putChars(std::vector<std::vector<Character*>> copy, int row, int col, Character* to_copy);
 	void										assign(std::string name, int id);
 	void										kill(std::vector<int> pos);
 
@@ -35,6 +36,7 @@ private:
 	std::vector<Character>						characters;
 	void										initChars();
 	King										king;
+	King										king_copy;
 	std::vector<Queen>							queens;
 	std::vector<Rook>							rooks;
 	std::vector<Knight>							knights;

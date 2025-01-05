@@ -39,11 +39,19 @@ public:
 	int											getPlayer() const;
 	void                                        defPosition(std::vector<int> pos);	
 	std::vector<std::vector<Character*>>		move(std::vector<std::vector<Character*>> board, std::vector<int> target);
+	std::vector<std::vector<Character*>>		reverse(std::vector<std::vector<Character*>> board);
 	std::vector<std::vector<int>>				getMoves();
 	std::vector<std::vector<int>>				getKills();
 	void										delMoves();
 	void										delKills();
 	virtual bool								isChess() const;
+	void										store_lastKill(Character* character);
+	void										store_lastMove(std::vector<int> from, std::vector<int> to);
+
+private:
+	std::vector<int>							lastMove_From;
+	std::vector<int>							lastMove_To;
+	Character*									lastMove_Killed;
 };
 
 #endif // CHARACTER_H

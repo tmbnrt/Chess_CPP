@@ -2,6 +2,7 @@
 #define KING_H
 
 #include "Character.h"
+//#include "Player.h"
 #include<vector>
 
 class King : public Character
@@ -26,6 +27,9 @@ private:
     std::vector<std::vector<Character*>>        copy_board;
     bool                                        rescued(std::vector<std::vector<Character*>> board, int act_row, int act_col, std::vector<int> to);
     void                                        clearMemory();
+    std::vector<std::vector<Character*>>        copyBoard(std::vector<std::vector<Character*>> input);
+    //Player                                      copyPlayer_white;
+    //Player                                      copyPlayer_black;
 };
 
 #endif

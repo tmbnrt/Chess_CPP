@@ -22,20 +22,31 @@ void King::clearMemory() {
 	}
 }
 
-std::vector<std::vector<Character*>> copyBoard(std::vector<std::vector<Character*>> input) {
-	std::vector<std::vector<Character*>> blueprint(8, std::vector<Character*>(8));
+std::vector<std::vector<Character*>> King::copyBoard(std::vector<std::vector<Character*>> input) {
+	std::vector<std::vector<Character*>> copy(8, std::vector<Character*>(8));
 	/*
+	Player copyPlayer_white = Player();
+	copyPlayer_white.assign("copy_1", 1);
+	Player copyPlayer_black = Player();
+	copyPlayer_black.assign("copy_2", 2);
+
 	for (int i = 0; i < input.size(); i++) {
 		for (int j = 0; j < input[0].size(); j++) {
+			if (input[i][j]) {
+				if (input[i][j]->getPlayer() == 1) {
+					copy = copyPlayer_white.copy_putChars(copy, i, j, input[i][j]);
+				}
+			}			
+			
 			if (input[i][j])
 				blueprint[i][j] = input[i][j]->getCopy();
 			else
 				blueprint[i][j] = nullptr;
+			
 		}
 	}
-	
 	*/
-	return blueprint;	
+	return copy;
 }
 
 // Check for the possible input move if king is still in chess
@@ -53,19 +64,25 @@ bool King::rescued(std::vector<std::vector<Character*>> board, int act_row, int 
 		}
 
 		this->copy_board.push_back(copy_board_col);
-	}*/
+	}
 	this->copy_board = copyBoard(board);
-
 	this->copy_board = copy_board[act_row][act_col]->move(copy_board, std::vector<int> { to[0], to[1] });
+	*/
+
 
 	//board[position[0]][position[1]]->isChess();
-	this->copy_board[position[0]][position[1]]->checkMoves(copy_board, false, false);
-	if (!copy_board[position[0]][position[1]]->isChess()) {		
-		clearMemory();
+	
+	board = board[act_row][act_col]->move(board, std::vector<int> { to[0], to[1] });
+	board[position[0]][position[1]]->checkMoves(board, false, false);
+	
+	if (!board[position[0]][position[1]]->isChess()) {		
+		//clearMemory(copy_board);
+		board = board[position[0]][position[1]]->reverse(board);
 		return true;
 	}
 
-	clearMemory();
+	//clearMemory(copy_board);
+	board = board[position[0]][position[1]]->reverse(board);
 	return false;
 }
 
@@ -80,7 +97,7 @@ void King::checkForRescue(std::vector<std::vector<Character*>> board) {
 
 			std::vector<std::vector<int>> moves = board[i][j]->getMoves();
 			std::vector<std::vector<int>> kills = board[i][j]->getKills();
-			moves.insert(moves.end(), moves.begin(), moves.end());
+			moves.insert(moves.end(), kills.begin(), kills.end());
 			
 			for (int k = 0; k < moves.size(); k++) {
 				std::vector<int> pos = std::vector<int>{ i, j };

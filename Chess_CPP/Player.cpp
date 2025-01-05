@@ -131,6 +131,42 @@ std::vector<std::vector<Character*>> Player::putChars(std::vector<std::vector<Ch
 	return board;
 }
 
+/*
+std::vector<std::vector<Character*>> Player::copy_putChars(std::vector<std::vector<Character*>> copy, int row, int col, Character* to_copy) {
+	
+	if (to_copy->getDesignation() == 'B' || to_copy->getDesignation() == 'b') {
+		pawns[0].defPosition(std::vector<int> {row, col});
+		copy[row][col] = &pawns[0];
+	}
+
+	if (to_copy->getDesignation() == 'T' || to_copy->getDesignation() == 't') {
+		rooks[0].defPosition(std::vector<int> {row, col});
+		copy[row][col] = &rooks[0];
+	}
+
+	if (to_copy->getDesignation() == 'S' || to_copy->getDesignation() == 's') {
+		knights[0].defPosition(std::vector<int> {row, col});
+		copy[row][col] = &knights[0];
+	}
+
+	if (to_copy->getDesignation() == 'L' || to_copy->getDesignation() == 'l') {
+		bishops[0].defPosition(std::vector<int> {row, col});
+		copy[row][col] = &bishops[0];
+	}
+
+	if (to_copy->getDesignation() == 'D' || to_copy->getDesignation() == 'd') {
+		queens[0].defPosition(std::vector<int> {row, col});
+		copy[row][col] = &queens[0];
+	}
+
+	//if (to_copy->getDesignation() == 'K' || to_copy->getDesignation() == 'k') {
+	//	king.defPosition(std::vector<int> {row, col});
+	//	copy[row][col] = &king;
+	//}
+
+	return copy;
+}*/
+
 void Player::kill(std::vector<int> pos) {
 	// loop through characters and delete character with designatuion "c"
 	// ...

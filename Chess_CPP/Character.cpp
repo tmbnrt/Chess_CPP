@@ -86,12 +86,49 @@ void Character::getPlayersPositions(std::vector<std::vector<Character*>> board) 
         std::cout << std::endl;
 }
 
+void Character::store_lastKill(Character* character) {
+    this->lastMove_Killed = character;
+}
+
+void Character::store_lastMove(std::vector<int> from, std::vector<int> to) {
+    this->lastMove_From = from;
+    this->lastMove_To = to;
+}
+
 std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Character*>> board, std::vector<int> target) {
+    // Save move for reverse case
+    for (int i = 0; i < board.size(); i++) {
+        for (int j = 0; j < board[0].size(); j++) {
+            if (!board[i][j])
+                continue;
+            if (board[i][j]->getPlayer() == player) {
+                if (board[target[0]][target[1]])
+                    board[i][j]->store_lastKill(board[target[0]][target[1]]);
+                else
+                    board[i][j]->store_lastKill(nullptr);
+                board[i][j]->store_lastMove(position, target);
+             }            
+        }
+    }    
+    
     // Copy figure on board and delete reference figure
     board[target[0]][target[1]] = board[position[0]][position[1]];
     board[position[0]][position[1]] = nullptr;
     this->position = target;
     this->countMoves++;
+
+    return board;
+}
+
+std::vector<std::vector<Character*>> Character::reverse(std::vector<std::vector<Character*>> board) {
+    // Copy figure on board and delete reference figure
+    board[lastMove_From[0]][lastMove_From[1]] = board[lastMove_To[0]][lastMove_To[1]];
+    if (lastMove_Killed)
+        board[lastMove_To[0]][lastMove_To[1]] = lastMove_Killed;
+    else
+        board[lastMove_To[0]][lastMove_To[1]] = nullptr;
+    board[lastMove_From[0]][lastMove_From[1]]->defPosition(lastMove_From);
+    this->countMoves--;
 
     return board;
 }
