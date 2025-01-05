@@ -13,6 +13,41 @@ void PlayerMoves::addHistory(std::vector<int> actual, std::vector<int> target) {
 	this->history_to.push_back(target);
 }
 
+bool PlayerMoves::isSuizide(std::vector<std::vector<Character*>> board, int player, std::vector<int> actual, std::vector<int> target) {
+	// Find own king
+	std::vector<int> kingPos;
+	for (int i = 0; i < board.size(); i++)
+		for (int j = 0; j < board[0].size(); j++)
+			if (board[i][j])
+				if (board[i][j]->getPlayer() == player && board[i][j]->getPoints() > 10)
+					kingPos = std::vector<int>{ i, j };
+
+	// Test move and check for suizide
+	board = board[actual[0]][actual[1]]->move(board, target);
+	if (kingPos[0] == actual[0] && kingPos[1] == actual[1]) {
+		board[target[0]][target[1]]->checkMoves(board, false, false);
+		if (board[target[0]][target[1]]->isChess()) {
+			board = board[target[0]][target[1]]->reverse(board);
+			return true;
+		}
+
+		board = board[target[0]][target[1]]->reverse(board);
+		return false;
+	}
+	else {
+		board[kingPos[0]][kingPos[1]]->checkMoves(board, false, false);
+		if (board[kingPos[0]][kingPos[1]]->isChess()) {
+			board = board[target[0]][target[1]]->reverse(board);
+			return true;
+		}
+
+		board = board[target[0]][target[1]]->reverse(board);
+		return false;
+	}
+	
+	return false;
+}
+
 void PlayerMoves::checkPlayerMoves(std::vector<std::vector<Character*>> board, int player) {
 	// del former possibilities
 	this->from.clear();
@@ -40,6 +75,9 @@ void PlayerMoves::checkPlayerMoves(std::vector<std::vector<Character*>> board, i
 					}
 
 					for (int k = 0; k < targets.size(); k++) {
+						if (isSuizide(board, player, actual, targets[k]))
+							continue;
+
 						this->from.push_back(actual);
 						this->to.push_back(targets[k]);
 					}

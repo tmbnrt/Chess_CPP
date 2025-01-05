@@ -9,7 +9,7 @@ class PlayerMoves
 public:
 	PlayerMoves();
 	~PlayerMoves();
-	int											player;
+	//int											player;
 	bool										checkAllowed(std::vector<int> actual, std::vector<int> target);
 	void										clear();
 	void										checkPlayerMoves(std::vector<std::vector<Character*>> board, int player);
@@ -22,6 +22,7 @@ private:
 	std::vector<std::vector<int>>				history_from;
 	std::vector<std::vector<int>>				history_to;
 	bool										chess;
+	bool										isSuizide(std::vector<std::vector<Character*>> board, int player, std::vector<int> actual, std::vector<int> target);
 };
 
 #endif PLAYERMOVES_H
