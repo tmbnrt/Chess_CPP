@@ -33,7 +33,7 @@ std::vector<std::vector<Character*>> copyBoard(std::vector<std::vector<Character
 				blueprint[i][j] = nullptr;
 		}
 	}
-	...
+	
 	*/
 	return blueprint;	
 }
