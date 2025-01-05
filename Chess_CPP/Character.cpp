@@ -35,6 +35,11 @@ bool Character::isChess() const {
         return false;
 }
 
+bool Character::isRescued() const {
+    if (points < 10)
+        return false;
+}
+
 int Character::numberOfMoves() {
     return countMoves;
 }

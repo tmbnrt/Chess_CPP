@@ -45,6 +45,7 @@ public:
 	void										delMoves();
 	void										delKills();
 	virtual bool								isChess() const;
+	virtual bool								isRescued() const;
 	void										store_lastKill(Character* character);
 	void										store_lastMove(std::vector<int> from, std::vector<int> to);
 

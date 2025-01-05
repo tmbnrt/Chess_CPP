@@ -50,43 +50,25 @@ std::vector<std::vector<Character*>> King::copyBoard(std::vector<std::vector<Cha
 }
 
 // Check for the possible input move if king is still in chess
-bool King::rescued(std::vector<std::vector<Character*>> board, int act_row, int act_col, std::vector<int> to) {	
-	// Create test copy of board (pointer to new address)
-	//std::vector<std::vector<Character*>> copy_board;
-	/*for (const auto& board_col : board) {
-		std::vector<Character*> copy_board_col;
-		for (const auto& ptr : board_col) {
-			// Reservate new memory and copy value
-			if (ptr)
-				copy_board_col.push_back(new Character(*ptr));
-			else
-				copy_board_col.push_back(nullptr);
-		}
-
-		this->copy_board.push_back(copy_board_col);
-	}
-	this->copy_board = copyBoard(board);
-	this->copy_board = copy_board[act_row][act_col]->move(copy_board, std::vector<int> { to[0], to[1] });
-	*/
-
-
-	//board[position[0]][position[1]]->isChess();
+bool King::rescued(std::vector<std::vector<Character*>> board, int act_row, int act_col, std::vector<int> to) {
 	
 	board = board[act_row][act_col]->move(board, std::vector<int> { to[0], to[1] });
 	board[position[0]][position[1]]->checkMoves(board, false, false);
 	
-	if (!board[position[0]][position[1]]->isChess()) {		
-		//clearMemory(copy_board);
+	if (!board[position[0]][position[1]]->isChess()) {
 		board = board[position[0]][position[1]]->reverse(board);
 		return true;
 	}
 
-	//clearMemory(copy_board);
 	board = board[position[0]][position[1]]->reverse(board);
 	return false;
 }
 
 void King::checkForRescue(std::vector<std::vector<Character*>> board) {
+	// TEST
+	this->rescueMovesFrom.clear();
+	this->rescueMovesTo.clear();
+	// TEST
 
 	for (int i = 0; i < board.size(); i++) {
 		for (int j = 0; j < board[0].size(); j++) {
@@ -94,6 +76,10 @@ void King::checkForRescue(std::vector<std::vector<Character*>> board) {
 				continue;
 			if (board[i][j]->getPlayer() != player || board[i][j]->getPoints() > 10)
 				continue;
+			
+			// TEST
+			board[i][j]->checkMoves(board);
+			// TEST
 
 			std::vector<std::vector<int>> moves = board[i][j]->getMoves();
 			std::vector<std::vector<int>> kills = board[i][j]->getKills();
@@ -112,13 +98,15 @@ void King::checkForRescue(std::vector<std::vector<Character*>> board) {
 			board[i][j]->delKills();
 		}
 	}
+
+	this->chess = true;
 }
 
 void King::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyFire, bool checkRescue) {
 	this->moves.clear();
 	this->kills.clear();
-	this->rescueMovesFrom.clear();
-	this->rescueMovesTo.clear();
+	/*this->rescueMovesFrom.clear();
+	this->rescueMovesTo.clear();*/
 
 	dangerZone.createDangerZone(board, player);
 
@@ -131,7 +119,7 @@ void King::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyF
 
 	// Check chess (actual position)
 	if (!dangerZone.noChess(newPos)) {
-		this->chess = true;
+			this->chess = true;
 		if (checkRescue)
 			checkForRescue(board);
 	}		
