@@ -2,25 +2,6 @@
 
 Game::Game() {}
 
-/*
-static void test_print(std::vector<std::vector<Character*>> board) {
-    for (int i = 0; i < board.size(); i++) {
-        std::cout << (i + 1) << "| ";
-        for (int j = 0; j < board[0].size(); j++) {
-            if (board[i][j] != nullptr)
-                std::cout << " " << board[i][j]->getDesignation() << " ";
-            else
-                std::cout << " 0 ";
-        }            
-            
-        std::cout << std::endl;
-    }
-
-    std::cout << "    ______________________" << std::endl;
-    std::cout << "    A  B  C  D  E  F  G  H" << std::endl;
-    std::cout << std::endl;
-}*/
-
 void Game::initPlayer(std::string name_1, std::string name_2) {
     this->white = Player();
     this->white.assign(name_1, 1);
@@ -32,6 +13,9 @@ int Game::start() {
     // Create and initialize board
     std::vector<std::vector<Character*>> init_board(8, std::vector<Character*>(8));
     this->board = init_board;
+
+    // Initialize renderer
+    Renderer renderer(8, 100);
 
     initPlayer("Player1", "Player2");
     this->board = white.putChars(this->board);
@@ -53,11 +37,11 @@ int Game::start() {
 
         // Print board to console
         action.printBoard(board);
+        renderer.render(board);
         
         // Get all possible moves of player
         playerMoves[act_player - 1].checkPlayerMoves(board, act_player);
         
-
         // Get the move from console input and move figure on board
         //action.updateMoves(playerMoves[act_player - 1], act_player);
         action.moveFromConsole(act_player, playerMoves[act_player - 1]);
@@ -71,7 +55,7 @@ int Game::start() {
 
         // Get input from console (later switched to Renderer UI)
 
-
+        
 
         // Switch player
         if (act_player == 1)

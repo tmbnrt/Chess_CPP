@@ -3,7 +3,12 @@
 // Description:
 // This class contains the logic for the chess game including the main loop
 // ===========================================================================
+#pragma comment(lib, "sfml-graphics-s.lib")
+#pragma comment(lib, "sfml-window-s.lib")
+#pragma comment(lib, "sfml-system-s.lib")
+
 #include "Player.h"
+#include "Renderer.h"
 #include "Character.h"
 #include "Action.h"
 #include "Test.h"
@@ -28,7 +33,7 @@ private:
 	void										initPlayer(std::string name_1, std::string name_2);
 	std::vector<PlayerMoves>					playerMoves;
 
-
+	void										render(std::vector<std::vector<Character*>> board);
 
 };
 
