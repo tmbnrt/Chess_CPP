@@ -1,7 +1,8 @@
 // ===========================================================================
 // Class: Action
 // Description:
-// This class is the communication and instruction interface for both players.
+// This class is the communication and instruction interface for both players,
+// playing on the console.
 // ===========================================================================
 #ifndef ACTION_H
 #define ACTION_H

@@ -3,10 +3,6 @@
 // Description:
 // This class contains the logic for the chess game including the main loop
 // ===========================================================================
-#pragma comment(lib, "sfml-graphics-s.lib")
-#pragma comment(lib, "sfml-window-s.lib")
-#pragma comment(lib, "sfml-system-s.lib")
-
 #include "Player.h"
 #include "Renderer.h"
 #include "Character.h"

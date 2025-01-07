@@ -28,6 +28,7 @@ int Game::start() {
     Test test = Test();
 
     // Main loop
+    int winner = 0;;
     int act_player = 1;       // white begins
     Action action = Action();
     bool active = true;
@@ -42,27 +43,29 @@ int Game::start() {
         // Get all possible moves of player
         playerMoves[act_player - 1].checkPlayerMoves(board, act_player);
         
+        // CHECK IF GAME IS LOST
+        if (playerMoves[act_player - 1].checkMate()) {
+            if (act_player == 1)
+                winner = 2;
+            else
+                winner = 1;
+            active = false;
+        }
+
+        // Get move from renderer
+        renderer.getMove(playerMoves[act_player - 1]);
+
         // Get the move from console input and move figure on board
-        //action.updateMoves(playerMoves[act_player - 1], act_player);
-        action.moveFromConsole(act_player, playerMoves[act_player - 1]);
-        board = board[action.from[0]][action.from[1]]->move(board, std::vector<int> {action.to[0], action.to[1]});
-        //std::vector<std::vector<int>> playerMove = action.getMoves(act_player);
-        
-        
-
-        // OUTPUT POSSIBLE MOVES
-        //test.possibleMoves(board);
-
-        // Get input from console (later switched to Renderer UI)
-
-        
+        //action.moveFromConsole(act_player, playerMoves[act_player - 1]);
+        //board = board[action.from[0]][action.from[1]]->move(board, std::vector<int> {action.to[0], action.to[1]});
+        board = board[renderer.move_from[0]][renderer.move_from[1]]->move(board, std::vector<int> {renderer.move_to[0], renderer.move_to[1]});
+        //std::vector<std::vector<int>> playerMove = action.getMoves(act_player); 
 
         // Switch player
         if (act_player == 1)
             act_player = 2;
         else
             act_player = 1;
-        //active = false;
     }
 
     return 0;

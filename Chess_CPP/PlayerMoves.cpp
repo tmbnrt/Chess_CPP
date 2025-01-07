@@ -72,6 +72,7 @@ void PlayerMoves::checkPlayerMoves(std::vector<std::vector<Character*>> board, i
 						this->to.clear();
 						this->from = board[i][j]->getRescueMovesFrom();
 						this->to = board[i][j]->getRescueMovesTo();
+						std::cout << "In chess: Player " + player << std::endl;
 					}
 
 					for (int k = 0; k < targets.size(); k++) {
@@ -93,6 +94,22 @@ void PlayerMoves::checkPlayerMoves(std::vector<std::vector<Character*>> board, i
 	}
 }
 
+bool PlayerMoves::checkAllowedActual(std::vector<int> actual) {
+	for (int i = 0; i < from.size(); i++)
+		if (from[i][0] == actual[0] && from[i][1] == actual[1])
+			return true;
+
+	return false;
+}
+
+bool PlayerMoves::checkAllowedTarget(std::vector<int> target) {
+	for (int i = 0; i < from.size(); i++)
+		if (to[i][0] == target[0] && to[i][1] == target[1])
+			return true;
+
+	return false;
+}
+
 bool PlayerMoves::checkAllowed(std::vector<int> actual, std::vector<int> target) {
 	for (int i = 0; i < from.size(); i++)
 		if (from[i][0] == actual[0] && from[i][1] == actual[1] && to[i][0] == target[0] && to[i][1] == target[1])
@@ -101,8 +118,24 @@ bool PlayerMoves::checkAllowed(std::vector<int> actual, std::vector<int> target)
 	return false;
 }
 
+std::vector<std::vector<int>> PlayerMoves::getTargets(std::vector<int> actual) {
+	std::vector<std::vector<int>> targets;
+	for (int i = 0; i < from.size(); i++)
+		if (from[i][0] == actual[0] && from[i][1] == actual[1])
+			targets.push_back(to[i]);
+
+	return targets;
+}
+
 bool PlayerMoves::isChess() const {
 	return chess;
+}
+
+bool PlayerMoves::checkMate() {
+
+	// ...
+
+	return false;
 }
 
 void PlayerMoves::clear() {
