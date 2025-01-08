@@ -6,6 +6,7 @@ Player::Player() {}
 
 void Player::assign(std::string name, int id) {
 	this->name = name;
+	this->id = id;
 	if (id == 1)
 		this->color = "White";
 	else
@@ -166,6 +167,13 @@ std::vector<std::vector<Character*>> Player::copy_putChars(std::vector<std::vect
 
 	return copy;
 }*/
+
+std::vector<std::vector<Character*>> Player::getQueen(std::vector<std::vector<Character*>> board, std::vector<int> pos) {
+	// Create a NEW board with a queen instead of the pawn
+	// ...
+
+	return board;
+}
 
 void Player::kill(std::vector<int> pos) {
 	// loop through characters and delete character with designatuion "c"

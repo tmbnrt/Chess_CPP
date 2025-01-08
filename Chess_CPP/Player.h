@@ -30,6 +30,7 @@ public:
 	//std::vector<std::vector<Character*>>		copy_putChars(std::vector<std::vector<Character*>> copy, int row, int col, Character* to_copy);
 	void										assign(std::string name, int id);
 	void										kill(std::vector<int> pos);
+	std::vector<std::vector<Character*>>		getQueen(std::vector<std::vector<Character*>> board, std::vector<int> pos);
 
 private:
 	int											points;

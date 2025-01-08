@@ -132,8 +132,9 @@ bool PlayerMoves::isChess() const {
 }
 
 bool PlayerMoves::checkMate() {
-
-	// ...
+	if (chess)
+		if (from.size() == 0 && to.size() == 0)
+			return true;
 
 	return false;
 }

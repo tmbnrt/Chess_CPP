@@ -28,6 +28,7 @@ int Game::start() {
     Test test = Test();
 
     // Main loop
+    bool random_enemy = false;
     int winner = 0;;
     int act_player = 1;       // white begins
     Action action = Action();
@@ -50,16 +51,28 @@ int Game::start() {
             else
                 winner = 1;
             active = false;
+            break;
         }
 
-        // Get move from renderer
-        renderer.getMove(playerMoves[act_player - 1]);
+        // Get random move for black player (enemy)
+        /*if (random_enemy) {
+            action.createRandomMove();
+            board = board[action.random_from[0]][action.random_from[1]]->move(board, std::vector<int> {action.random_to[0], action.random_to[1]});
+            continue;
+        }*/
 
-        // Get the move from console input and move figure on board
-        //action.moveFromConsole(act_player, playerMoves[act_player - 1]);
-        //board = board[action.from[0]][action.from[1]]->move(board, std::vector<int> {action.to[0], action.to[1]});
-        board = board[renderer.move_from[0]][renderer.move_from[1]]->move(board, std::vector<int> {renderer.move_to[0], renderer.move_to[1]});
+        // Get move from renderer - OR - console
+        renderer.getMove(playerMoves[act_player - 1]);
         //std::vector<std::vector<int>> playerMove = action.getMoves(act_player); 
+
+        // Move figure on board
+        board = board[renderer.move_from[0]][renderer.move_from[1]]->move(board, std::vector<int> {renderer.move_to[0], renderer.move_to[1]});
+        
+        // Check if pawn has reached oppisite side
+        if (act_player == 1 && board[renderer.move_to[0]][renderer.move_to[1]]->getDesignation() == 'B' && renderer.move_to[0] == 0)
+            board = white.getQueen(board, renderer.move_to);
+        if (act_player == 2 && board[renderer.move_to[0]][renderer.move_to[1]]->getDesignation() == 'b' && renderer.move_to[0] == 7)
+            board = black.getQueen(board, renderer.move_to);
 
         // Switch player
         if (act_player == 1)
@@ -67,6 +80,8 @@ int Game::start() {
         else
             act_player = 1;
     }
+
+    std::cout << "  --> Winner is Player " + act_player << std::endl;
 
     return 0;
 }

@@ -122,6 +122,12 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
     this->position = target;
     this->countMoves++;
 
+    // Check Rochade
+    // ...
+
+    // Check En-passante
+    // ...
+    
     return board;
 }
 

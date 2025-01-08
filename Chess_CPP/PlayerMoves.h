@@ -2,6 +2,7 @@
 #define PLAYERMOVES_H
 
 #include "Character.h"
+#include "Queen.h"
 #include <vector>
 #include <iostream>
 
