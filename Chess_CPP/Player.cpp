@@ -170,9 +170,51 @@ std::vector<std::vector<Character*>> Player::copy_putChars(std::vector<std::vect
 
 std::vector<std::vector<Character*>> Player::getQueen(std::vector<std::vector<Character*>> board, std::vector<int> pos) {
 	// Create a NEW board with a queen instead of the pawn
+	std::vector<std::vector<Character*>> new_board(8, std::vector<Character*>(8));
+	std::vector<std::vector<char>> char_field(8, std::vector<char>(8));
+	std::vector<std::vector<int>> moves_field(8, std::vector<int>(8));
+
+	// Clear character arrays
 	// ...
 
-	return board;
+	for (int i = 0; i < board.size(); i++) {
+		for (int j = 0; j < board[0].size(); j++) {
+			if (board[i][j] == nullptr || (i == pos[0] && j == pos[1]))
+				continue;
+			//char_field[i][j] = board[][]
+
+
+			//new_board[i][j] = board[i][j];					// ERROR, weil die Speicher-Adresse übernommen wird!
+		}
+	}
+
+	// new:
+	// .create char field
+	// .create countmoves field
+	// .update character arrays (delete old ones)
+	// .create new board by assigning new 
+
+	for (int i = 0; i < board.size(); i++) {
+		for (int j = 0; j < board[0].size(); j++) {
+			if (i == pos[0] && j == pos[1])
+				continue;
+			new_board[i][j] = board[i][j];					// ERROR, weil die Speicher-Adresse übernommen wird!
+		}
+	}
+
+	if (board[pos[0]][pos[1]]->getPlayer() == 1) {
+		queens.push_back(Queen());
+		queens[queens.size() - 1].assign('D', 1);
+	}
+	else {
+		queens.push_back(Queen());
+		queens[queens.size() - 1].assign('d', 2);
+	}
+	
+	queens[queens.size() - 1].defPosition(pos);
+	new_board[pos[0]][pos[1]] = &queens[queens.size() - 1];
+
+	return new_board;
 }
 
 void Player::kill(std::vector<int> pos) {
