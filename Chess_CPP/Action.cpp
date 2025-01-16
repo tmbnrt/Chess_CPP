@@ -14,6 +14,13 @@ std::vector<int> static getCoordsFromStr(std::string inp) {
 	return out;
 }
 
+void Action::createRandomMove(PlayerMoves playerMoves) {
+	std::srand(static_cast<signed int>(std::time(0)));
+	int random_num = std::rand() % playerMoves.getNumberMoves();
+	this->random_from = playerMoves.getRandFrom(random_num);
+	this->random_to = playerMoves.getRandTarget(random_num);
+}
+
 void Action::moveFromConsole(int player, PlayerMoves& playerMoves) {
 	std::string actual, target;
 	std::string input;

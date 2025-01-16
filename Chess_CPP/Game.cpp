@@ -28,7 +28,7 @@ int Game::start() {
     Test test = Test();
 
     // Main loop
-    bool random_enemy = false;
+    bool random_enemy = true;
     int winner = 0;;
     int act_player = 1;       // white begins
     Action action = Action();
@@ -55,15 +55,16 @@ int Game::start() {
         }
 
         // Get random move for black player (enemy)
-        /*if (random_enemy) {
-            action.createRandomMove();
+        if (random_enemy && act_player == 2) {
+            action.createRandomMove(playerMoves[act_player - 1]);
             board = board[action.random_from[0]][action.random_from[1]]->move(board, std::vector<int> {action.random_to[0], action.random_to[1]});
+            act_player = 1;
             continue;
-        }*/
+        }
 
         // Get move from renderer - OR - console
         renderer.getMove(playerMoves[act_player - 1]);
-        //std::vector<std::vector<int>> playerMove = action.getMoves(act_player); 
+        //std::vector<std::vector<int>> playerMove = action.getMoves(act_player);
 
         // Move figure on board
         board = board[renderer.move_from[0]][renderer.move_from[1]]->move(board, std::vector<int> {renderer.move_to[0], renderer.move_to[1]});

@@ -12,6 +12,8 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <cstdlib>
+#include <ctime>
 
 class Action
 {
@@ -22,8 +24,11 @@ public:
 	//void										updateMoves(PlayerMoves playerMoves, int player);
 	void										printBoard(std::vector<std::vector<Character*>> board);
 	void										moveFromConsole(int player, PlayerMoves& playerMoves);
+	void										createRandomMove(PlayerMoves playerMoves);
 	std::vector<int>							from;
 	std::vector<int>							to;
+	std::vector<int>							random_from;
+	std::vector<int>							random_to;
 
 private:
 	std::vector<std::vector<int>>				charBoard;

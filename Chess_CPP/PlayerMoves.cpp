@@ -127,6 +127,18 @@ std::vector<std::vector<int>> PlayerMoves::getTargets(std::vector<int> actual) {
 	return targets;
 }
 
+int PlayerMoves::getNumberMoves() {
+	return from.size();
+}
+
+std::vector<int> PlayerMoves::getRandFrom(int act) {
+	return from[act];
+}
+
+std::vector<int> PlayerMoves::getRandTarget(int act) {
+	return to[act];
+}
+
 bool PlayerMoves::isChess() const {
 	return chess;
 }

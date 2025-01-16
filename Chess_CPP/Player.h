@@ -36,6 +36,7 @@ private:
 	int											points;
 	std::vector<Character>						characters;
 	void										initChars();
+	void										delCharVecs();
 	King										king;
 	King										king_copy;
 	std::vector<Queen>							queens;
