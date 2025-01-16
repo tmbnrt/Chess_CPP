@@ -30,7 +30,7 @@ int Game::start() {
     // Main loop
     bool random_enemy = true;
     int winner = 0;;
-    int act_player = 1;       // white begins
+    int act_player = 1;       // white starts
     Action action = Action();
     bool active = true;
     while (active) {
