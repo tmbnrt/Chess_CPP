@@ -106,6 +106,11 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
         for (int j = 0; j < board[0].size(); j++) {
             if (!board[i][j])
                 continue;
+            // Check En Passante
+            // ...
+            // Check Rochade
+            // ...
+
             if (board[i][j]->getPlayer() == player) {
                 if (board[target[0]][target[1]])
                     board[i][j]->store_lastKill(board[target[0]][target[1]]);
@@ -114,7 +119,13 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
                 board[i][j]->store_lastMove(position, target);
              }            
         }
-    }    
+    }
+
+    // Check En Passant
+    // ...
+
+    // Check Rochade
+    // ...
     
     // Copy figure on board and delete reference figure
     board[target[0]][target[1]] = board[position[0]][position[1]];

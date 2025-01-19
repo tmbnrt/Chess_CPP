@@ -7,6 +7,7 @@
 class Pawn : public Character
 {
 public:
+
     Pawn();
     ~Pawn() override ;
     //Character*                                  clone() const override { return new Pawn(*this); }
