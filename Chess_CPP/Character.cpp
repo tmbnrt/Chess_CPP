@@ -53,6 +53,10 @@ void Character::defPosition(std::vector<int> pos) {
     this->position = pos;
 }
 
+std::vector<int> Character::getPosition() {
+    return position;
+}
+
 std::vector<std::vector<int>> Character::getMoves() {
     return moves;
 }
@@ -105,13 +109,31 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
     for (int i = 0; i < board.size(); i++) {
         for (int j = 0; j < board[0].size(); j++) {
             if (!board[i][j])
-                continue;
-            // Check En Passante
-            // ...
-            // Check Rochade
-            // ...
+                continue;            
 
             if (board[i][j]->getPlayer() == player) {
+                // Check En Passante
+                if (board[i][j]->getPoints() == 1 && board[target[0]][target[1]] == nullptr && position[0] != target[0]) {
+                    if (player == 1 && board[target[0] - 1][target[1]]) {
+                        if (board[target[0] - 1][target[1]]->getPoints() == 1) {
+                            board[i][j]->store_lastKill(board[target[0] - 1][target[1]]);
+                            board[i][j]->store_lastMove(position, target);
+                            continue;
+                        }
+                            
+                    }
+                    else if (player == 2 && board[target[0] + 1][target[1]]) {
+                        if (board[target[0] + 1][target[1]]->getPoints() == 1) {
+                            board[i][j]->store_lastKill(board[target[0] + 1][target[1]]);
+                            board[i][j]->store_lastMove(position, target);
+                            continue;
+                        }                            
+                    }                    
+                }
+                     
+                // Check Rochade
+                // ...
+
                 if (board[target[0]][target[1]])
                     board[i][j]->store_lastKill(board[target[0]][target[1]]);
                 else
@@ -121,8 +143,13 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
         }
     }
 
-    // Check En Passant
-    // ...
+    // Check En Passant -> kill enemy
+    if (points == 1 && board[target[0]][target[1]] == nullptr && position[1] != target[1]) {
+        if (player == 1)
+            board[target[0] + 1][target[1]] = nullptr;
+        else
+            board[target[0] - 1][target[1]] = nullptr;
+    }
 
     // Check Rochade
     // ...
@@ -132,12 +159,6 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
     board[position[0]][position[1]] = nullptr;
     this->position = target;
     this->countMoves++;
-
-    // Check Rochade
-    // ...
-
-    // Check En-passante
-    // ...
     
     return board;
 }
@@ -145,8 +166,11 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
 std::vector<std::vector<Character*>> Character::reverse(std::vector<std::vector<Character*>> board) {
     // Copy figure on board and delete reference figure
     board[lastMove_From[0]][lastMove_From[1]] = board[lastMove_To[0]][lastMove_To[1]];
-    if (lastMove_Killed)
-        board[lastMove_To[0]][lastMove_To[1]] = lastMove_Killed;
+    if (lastMove_Killed) {
+        //board[lastMove_To[0]][lastMove_To[1]] = lastMove_Killed;
+        std::vector<int> oldPos = lastMove_Killed->getPosition();
+        board[oldPos[0]][oldPos[1]] = lastMove_Killed;
+    }        
     else
         board[lastMove_To[0]][lastMove_To[1]] = nullptr;
     board[lastMove_From[0]][lastMove_From[1]]->defPosition(lastMove_From);

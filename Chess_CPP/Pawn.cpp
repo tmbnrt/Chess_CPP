@@ -39,6 +39,7 @@ void Pawn::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyF
 		std::vector<int> killPos1 = std::vector<int>{ position[0] + 1, position[1] + 1 };
 		std::vector<int> killPos2 = std::vector<int>{ position[0] + 1, position[1] - 1 };
 		
+		//if (killPos1[0] < 8 && killPos1[1] < 8 && board[killPos1[0]][killPos1[1]]) {
 		if (killPos1[0] < 8 && killPos1[1] < 8) {
 			if (playersPositions[killPos1[0]][killPos1[1]] == enemy)
 				this->kills.push_back(killPos1);
@@ -50,6 +51,7 @@ void Pawn::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyF
 			}			
 		}
 		
+		//if (killPos2[0] < 8 && killPos2[1] >= 0 && board[killPos2[0]][killPos2[1]]) {
 		if (killPos2[0] < 8 && killPos2[1] >= 0) {
 			if (playersPositions[killPos2[0]][killPos2[1]] == enemy)
 				this->kills.push_back(killPos2);
@@ -77,6 +79,7 @@ void Pawn::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyF
 		std::vector<int> killPos1 = std::vector<int>{ position[0] - 1, position[1] + 1 };
 		std::vector<int> killPos2 = std::vector<int>{ position[0] - 1, position[1] - 1 };
 
+		//if (killPos1[0] >= 0 && killPos1[1] < 8 && board[killPos1[0]][killPos1[1]]) {
 		if (killPos1[0] >= 0 && killPos1[1] < 8) {
 			if (playersPositions[killPos1[0]][killPos1[1]] == enemy)
 				this->kills.push_back(killPos1);
@@ -88,6 +91,7 @@ void Pawn::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyF
 			}			
 		}
 
+		//if (killPos2[0] >= 0 && killPos2[1] >= 0 && board[killPos2[0]][killPos2[1]]) {
 		if (killPos2[0] >= 0 && killPos2[1] >= 0) {
 			if (playersPositions[killPos2[0]][killPos2[1]] == enemy)
 				this->kills.push_back(killPos2);
