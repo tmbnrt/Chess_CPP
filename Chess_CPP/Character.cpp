@@ -109,28 +109,39 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
     for (int i = 0; i < board.size(); i++) {
         for (int j = 0; j < board[0].size(); j++) {
             if (!board[i][j])
-                continue;            
+                continue;
 
-            if (board[i][j]->getPlayer() == player) {
+            if (board[i][j]->getPlayer() == player) {                
                 // Check En Passante
+                
                 if (board[i][j]->getPoints() == 1 && board[target[0]][target[1]] == nullptr && position[0] != target[0]) {
-                    if (player == 1 && board[target[0] - 1][target[1]]) {
+                    std::cout << "DEBUG en passante" << std::endl;
+
+                    if (player == 1 && board[target[0] - 1][target[1]]) {        // HIER DER BUG ???
+                        std::cout << "DEBUG en passante if cond okay" << std::endl;
                         if (board[target[0] - 1][target[1]]->getPoints() == 1) {
+                            std::cout << "DEBUG en passante -IF-" << std::endl;
                             board[i][j]->store_lastKill(board[target[0] - 1][target[1]]);
                             board[i][j]->store_lastMove(position, target);
+                            std::cout << "DEBUG en passante -IF- OKAY" << std::endl;
                             continue;
                         }
-                            
                     }
                     else if (player == 2 && board[target[0] + 1][target[1]]) {
                         if (board[target[0] + 1][target[1]]->getPoints() == 1) {
+                            std::cout << "DEBUG en passante -ELSEIF-" << std::endl;
                             board[i][j]->store_lastKill(board[target[0] + 1][target[1]]);
                             board[i][j]->store_lastMove(position, target);
+                            std::cout << "DEBUG en passante -ELSEIF- OKAY" << std::endl;
                             continue;
-                        }                            
-                    }                    
+                        }
+                    }
+                    else {
+                        std::cout << "BUG IS HERE?" << std::endl;
+                    }
                 }
-                     
+                std::cout << "no BUG!" << std::endl;
+
                 // Check Rochade
                 // ...
 
@@ -139,17 +150,17 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
                 else
                     board[i][j]->store_lastKill(nullptr);
                 board[i][j]->store_lastMove(position, target);
-             }            
+            }
         }
     }
 
-    // Check En Passant -> kill enemy
+    // Check En Passant -> kill enemy    
     if (points == 1 && board[target[0]][target[1]] == nullptr && position[1] != target[1]) {
         if (player == 1)
             board[target[0] + 1][target[1]] = nullptr;
         else
             board[target[0] - 1][target[1]] = nullptr;
-    }
+    }    
 
     // Check Rochade
     // ...
@@ -159,7 +170,7 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
     board[position[0]][position[1]] = nullptr;
     this->position = target;
     this->countMoves++;
-    
+
     return board;
 }
 

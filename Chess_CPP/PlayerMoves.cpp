@@ -22,9 +22,12 @@ bool PlayerMoves::isSuizide(std::vector<std::vector<Character*>> board, int play
 				if (board[i][j]->getPlayer() == player && board[i][j]->getPoints() > 10)
 					kingPos = std::vector<int>{ i, j };
 
+	
+	std::cout << "DEBUG suizide move" << std::endl;
 	// Test move and check for suizide
 	board = board[actual[0]][actual[1]]->move(board, target);
-	if (kingPos[0] == actual[0] && kingPos[1] == actual[1]) {
+	std::cout << "DEBUG suizide move okay" << std::endl;
+	if (kingPos[0] == actual[0] && kingPos[1] == actual[1]) {		
 		board[target[0]][target[1]]->checkMoves(board, false, false);
 		if (board[target[0]][target[1]]->isChess()) {
 			board = board[target[0]][target[1]]->reverse(board);
@@ -32,6 +35,7 @@ bool PlayerMoves::isSuizide(std::vector<std::vector<Character*>> board, int play
 		}
 
 		board = board[target[0]][target[1]]->reverse(board);
+
 		return false;
 	}
 	else {
@@ -42,6 +46,7 @@ bool PlayerMoves::isSuizide(std::vector<std::vector<Character*>> board, int play
 		}
 
 		board = board[target[0]][target[1]]->reverse(board);
+
 		return false;
 	}
 	
@@ -61,6 +66,7 @@ void PlayerMoves::checkPlayerMoves(std::vector<std::vector<Character*>> board, i
 			if (board[i][j] != nullptr) {
 				if (board[i][j]->getPlayer() == player) {
 					board[i][j]->checkMoves(board);
+
 					std::vector<int> actual = std::vector<int>{ i, j };
 					std::vector<std::vector<int>> targets = board[i][j]->getMoves();
 					std::vector<std::vector<int>> kills = board[i][j]->getKills();

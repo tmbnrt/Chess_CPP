@@ -35,15 +35,15 @@ int Game::start() {
     bool active = true;
     while (active) {
         // TEST MOVES
-        //this->board = test.move(board);
+        //this->board = test.move(board);       
 
         // Print board to console
         action.printBoard(board);
         renderer.render(board);
-        
+
         // Get all possible moves of player
         playerMoves[act_player - 1].checkPlayerMoves(board, act_player);
-        
+
         // CHECK IF GAME IS LOST
         if (playerMoves[act_player - 1].checkMate()) {
             if (act_player == 1)
