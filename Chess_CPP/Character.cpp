@@ -117,7 +117,15 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
                 if (board[i][j]->getPoints() == 1 && board[target[0]][target[1]] == nullptr && position[0] != target[0]) {
                     std::cout << "DEBUG en passante" << std::endl;
 
-                    if (player == 1 && board[target[0] - 1][target[1]]) {        // HIER DER BUG ???
+                    std::cout << "Target:" << std::endl;
+                    std::cout << position[0] << std::endl;
+                    std::cout << position[1] << std::endl;
+
+                    std::cout << "Target:" << std::endl;
+                    std::cout << target[0] - 1 << std::endl;
+                    std::cout << target[1] << std::endl;
+
+                    if (player == 1 && board[target[0] - 1][target[1]]) {        // BUG! Hier kam -1,3 raus als Target!!!
                         std::cout << "DEBUG en passante if cond okay" << std::endl;
                         if (board[target[0] - 1][target[1]]->getPoints() == 1) {
                             std::cout << "DEBUG en passante -IF-" << std::endl;
