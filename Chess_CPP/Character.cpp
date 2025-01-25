@@ -112,12 +112,11 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
                 continue;
 
             if (board[i][j]->getPlayer() == player) {                
-                // Check En Passante
-                
-                if (board[i][j]->getPoints() == 1 && board[target[0]][target[1]] == nullptr && position[0] != target[0]) {
+                // Check En Passante                
+                if (getPoints() == 1 && board[target[0]][target[1]] == nullptr && position[0] != target[0]) {
                     std::cout << "DEBUG en passante" << std::endl;
 
-                    std::cout << "Target:" << std::endl;
+                    std::cout << "Position:" << std::endl;
                     std::cout << position[0] << std::endl;
                     std::cout << position[1] << std::endl;
 
@@ -144,11 +143,7 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
                             continue;
                         }
                     }
-                    else {
-                        std::cout << "BUG IS HERE?" << std::endl;
-                    }
                 }
-                std::cout << "no BUG!" << std::endl;
 
                 // Check Rochade
                 // ...
