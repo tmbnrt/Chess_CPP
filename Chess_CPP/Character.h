@@ -39,7 +39,7 @@ public:
 	int											getPlayer() const;
 	void                                        defPosition(std::vector<int> pos);	
 	std::vector<int>							getPosition();	
-	std::vector<std::vector<Character*>>		move(std::vector<std::vector<Character*>> board, std::vector<int> target);
+	std::vector<std::vector<Character*>>		move(std::vector<std::vector<Character*>> board, std::vector<int> target, bool testMove = true);
 	std::vector<std::vector<Character*>>		reverse(std::vector<std::vector<Character*>> board);
 	std::vector<std::vector<int>>				getMoves();
 	std::vector<std::vector<int>>				getKills();

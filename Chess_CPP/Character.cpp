@@ -1,6 +1,7 @@
 #include "Character.h"
 
 #include<iostream>
+#include<cstdlib>
 
 Character::Character() {
     this->points = int();
@@ -104,42 +105,27 @@ void Character::store_lastMove(std::vector<int> from, std::vector<int> to) {
     this->lastMove_To = to;
 }
 
-std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Character*>> board, std::vector<int> target) {
+std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Character*>> board, std::vector<int> target, bool testMove) {
     // Save move for reverse case
     for (int i = 0; i < board.size(); i++) {
         for (int j = 0; j < board[0].size(); j++) {
             if (!board[i][j])
                 continue;
 
-            if (board[i][j]->getPlayer() == player) {                
-                // Check En Passante                
+            if (board[i][j]->getPlayer() == player) {
+                // Check En Passante
                 if (getPoints() == 1 && board[target[0]][target[1]] == nullptr && position[0] != target[0]) {
-                    std::cout << "DEBUG en passante" << std::endl;
-
-                    std::cout << "Position:" << std::endl;
-                    std::cout << position[0] << std::endl;
-                    std::cout << position[1] << std::endl;
-
-                    std::cout << "Target:" << std::endl;
-                    std::cout << target[0] - 1 << std::endl;
-                    std::cout << target[1] << std::endl;
-
-                    if (player == 1 && board[target[0] - 1][target[1]]) {        // BUG! Hier kam -1,3 raus als Target!!!
-                        std::cout << "DEBUG en passante if cond okay" << std::endl;
+                    if (player == 1 && board[target[0] - 1][target[1]]) {
                         if (board[target[0] - 1][target[1]]->getPoints() == 1) {
-                            std::cout << "DEBUG en passante -IF-" << std::endl;
                             board[i][j]->store_lastKill(board[target[0] - 1][target[1]]);
                             board[i][j]->store_lastMove(position, target);
-                            std::cout << "DEBUG en passante -IF- OKAY" << std::endl;
                             continue;
                         }
                     }
                     else if (player == 2 && board[target[0] + 1][target[1]]) {
                         if (board[target[0] + 1][target[1]]->getPoints() == 1) {
-                            std::cout << "DEBUG en passante -ELSEIF-" << std::endl;
                             board[i][j]->store_lastKill(board[target[0] + 1][target[1]]);
                             board[i][j]->store_lastMove(position, target);
-                            std::cout << "DEBUG en passante -ELSEIF- OKAY" << std::endl;
                             continue;
                         }
                     }
@@ -157,7 +143,7 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
         }
     }
 
-    // Check En Passant -> kill enemy    
+    // En Passant -> kill enemy    
     if (points == 1 && board[target[0]][target[1]] == nullptr && position[1] != target[1]) {
         if (player == 1)
             board[target[0] + 1][target[1]] = nullptr;
@@ -165,8 +151,19 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
             board[target[0] - 1][target[1]] = nullptr;
     }    
 
-    // Check Rochade
-    // ...
+    // Check Rochade -> move rook
+    if (points > 100 && std::abs(position[1] - target[1]) > 1 && !testMove) {
+        if (target[1] == 1) {
+            board[position[0]][2] = board[position[0]][0];
+            board[position[0]][0] = nullptr;
+            board[position[0]][2]->defPosition(std::vector<int>{position[0], 2});
+        }
+        if (target[1] == 6) {
+            board[position[0]][5] = board[position[0]][7];
+            board[position[0]][7] = nullptr;
+            board[position[0]][5]->defPosition(std::vector<int>{position[0], 5});
+        }
+    }
     
     // Copy figure on board and delete reference figure
     board[target[0]][target[1]] = board[position[0]][position[1]];

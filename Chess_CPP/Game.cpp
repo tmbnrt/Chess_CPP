@@ -44,12 +44,17 @@ int Game::start() {
         // Get all possible moves of player
         playerMoves[act_player - 1].checkPlayerMoves(board, act_player);
 
-        // CHECK IF GAME IS LOST
+        // CHECK IF GAME IS LOST OR STALEMATE
         if (playerMoves[act_player - 1].checkMate()) {
             if (act_player == 1)
                 winner = 2;
             else
                 winner = 1;
+            active = false;
+            break;
+        }
+        if (playerMoves[act_player - 1].getNumberMoves() == 0 && !playerMoves[act_player - 1].isChess()) {
+            winner = 0;
             active = false;
             break;
         }
@@ -67,7 +72,7 @@ int Game::start() {
         //std::vector<std::vector<int>> playerMove = action.getMoves(act_player);
 
         // Move figure on board
-        board = board[renderer.move_from[0]][renderer.move_from[1]]->move(board, std::vector<int> {renderer.move_to[0], renderer.move_to[1]});
+        board = board[renderer.move_from[0]][renderer.move_from[1]]->move(board, std::vector<int> {renderer.move_to[0], renderer.move_to[1]}, false);
         
         // Check if pawn has reached oppisite side
         if (act_player == 1 && board[renderer.move_to[0]][renderer.move_to[1]]->getDesignation() == 'B' && renderer.move_to[0] == 0)
@@ -81,8 +86,10 @@ int Game::start() {
         else
             act_player = 1;
     }
-
-    std::cout << "  --> Winner is Player " + act_player << std::endl;
+    if (winner > 0)
+        std::cout << "  --> Winner is Player " + act_player << std::endl;
+    else
+        std::cout << "  --> Stealmate!" << std::endl;
 
     return 0;
 }

@@ -213,6 +213,26 @@ void King::checkMoves(std::vector<std::vector<Character*>> board, bool friendlyF
 		else if (playersPositions[newPos[0]][newPos[1]] == player && friendlyFire)
 			this->moves.push_back(newPos);
 	}
+
+	// Check Rochade
+	if (countMoves == 0) {
+		// Left
+		if (board[position[0]][position[1] - 1] == nullptr && board[position[0]][position[1] - 2] == nullptr && board[position[0]][position[1] - 3] == nullptr
+			&& (board[position[0]][position[1] - 4]->getDesignation() == 'T' || board[position[0]][position[1] - 4]->getDesignation() == 't')
+			&& board[position[0]][position[1] - 4]->numberOfMoves() == 0) {
+			std::cout << "Error Rochade" << std::endl;
+			this->moves.push_back(std::vector<int>{ position[0], position[1] - 3 });
+			std::cout << "No Error Rochade" << std::endl;
+		}
+		// Right
+		if (board[position[0]][position[1] + 1] == nullptr && board[position[0]][position[1] + 2] == nullptr
+			&& (board[position[0]][position[1] + 3]->getDesignation() == 'T' || board[position[0]][position[1] + 3]->getDesignation() == 't')
+			&& board[position[0]][position[1] + 3]->numberOfMoves() == 0) {
+			std::cout << "Error Rochade" << std::endl;
+			this->moves.push_back(std::vector<int>{ position[0], position[1] + 2 });
+			std::cout << "No Error Rochade" << std::endl;
+		}
+	}
 }
 
 std::vector<std::vector<int>> King::getRescueMovesFrom() const {

@@ -4,6 +4,7 @@
 #include "Character.h"
 //#include "Player.h"
 #include<vector>
+#include<iostream>
 
 class King : public Character
 {
