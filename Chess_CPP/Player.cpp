@@ -177,7 +177,8 @@ std::vector<std::vector<Character*>> Player::copy_putChars(std::vector<std::vect
 }*/
 
 std::vector<std::vector<Character*>> Player::getQueen(std::vector<std::vector<Character*>> board, std::vector<int> pos) {
-	// Create a NEW board with a queen instead of the pawn
+
+// Create a NEW board with a queen instead of the pawn
 	std::vector<std::vector<Character*>> new_board(8, std::vector<Character*>(8));
 	std::vector<Character> temp_queens = std::vector<Character>();
 	std::vector<Character> temp_rooks = std::vector<Character>();
@@ -273,7 +274,7 @@ std::vector<std::vector<Character*>> Player::getQueen(std::vector<std::vector<Ch
 	this->queens[queens.size() - 1].defPosition(pos);
 	new_board[pos[0]][pos[1]] = &queens[queens.size() - 1];
 
-	return new_board;
+	return new_board;	
 }
 
 void Player::kill(std::vector<int> pos) {
