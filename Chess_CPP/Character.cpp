@@ -115,24 +115,25 @@ std::vector<std::vector<Character*>> Character::move(std::vector<std::vector<Cha
             if (board[i][j]->getPlayer() == player) {
                 // Check En Passante
                 if (getPoints() == 1 && board[target[0]][target[1]] == nullptr && position[0] != target[0]) {
-                    if (player == 1 && board[target[0] - 1][target[1]]) {
-                        if (board[target[0] - 1][target[1]]->getPoints() == 1) {
-                            board[i][j]->store_lastKill(board[target[0] - 1][target[1]]);
-                            board[i][j]->store_lastMove(position, target);
-                            continue;
+                    if (player == 1 && (target[0] - 1) >= 0) {
+                        if (board[target[0] - 1][target[1]]) {
+                            if (board[target[0] - 1][target[1]]->getPoints() == 1) {
+                                board[i][j]->store_lastKill(board[target[0] - 1][target[1]]);
+                                board[i][j]->store_lastMove(position, target);
+                                continue;
+                            }
                         }
-                    }
-                    else if (player == 2 && board[target[0] + 1][target[1]]) {
-                        if (board[target[0] + 1][target[1]]->getPoints() == 1) {
-                            board[i][j]->store_lastKill(board[target[0] + 1][target[1]]);
-                            board[i][j]->store_lastMove(position, target);
-                            continue;
-                        }
+                    }                    
+                    else if (player == 2 && (target[0] + 1) < 8) {
+                        if (board[target[0] + 1][target[1]]) {
+                            if (board[target[0] + 1][target[1]]->getPoints() == 1) {
+                                board[i][j]->store_lastKill(board[target[0] + 1][target[1]]);
+                                board[i][j]->store_lastMove(position, target);
+                                continue;
+                            }
+                        }                        
                     }
                 }
-
-                // Check Rochade
-                // ...
 
                 if (board[target[0]][target[1]])
                     board[i][j]->store_lastKill(board[target[0]][target[1]]);
