@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Prediction.h"
 
 Game::Game() {}
 
@@ -27,8 +28,12 @@ int Game::start() {
     // Initialize test engine
     Test test = Test();
 
+    // Initialize AI Prediction 
+    Prediction prediction = Prediction();
+
     // Main loop
     bool random_enemy = true;
+    bool predict = false;
     int winner = 0;;
     int act_player = 1;       // white starts
     Action action = Action();
@@ -65,6 +70,11 @@ int Game::start() {
             board = board[action.random_from[0]][action.random_from[1]]->move(board, std::vector<int> {action.random_to[0], action.random_to[1]});
             act_player = 1;
             continue;
+        }
+        if (predict) {
+            prediction.inputProcess(board, playerMoves[act_player - 1]);
+            std::vector<int> ai_from = prediction.getMove()[0];
+            std::vector<int> ai_to = prediction.getMove()[1];
         }
 
         // Get move from renderer - OR - console
