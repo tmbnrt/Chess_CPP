@@ -1,4 +1,8 @@
 #include "Prediction.h"
+#include "Python.h"
+#include <vector>
+#include <iostream>
+
 
 Prediction::Prediction() {
 	std::vector<std::vector<char>> field(8, std::vector<char>(8));
@@ -23,8 +27,8 @@ void Prediction::inputProcess(std::vector<std::vector<Character*>> board, Player
 }
 
 void Prediction::predict() {
-	// Integrate Python module
-	// ...
+	// Initialize Python
+	Py_Initialize();
 }
 
 std::vector<std::vector<int>> Prediction::getMove() {
