@@ -22,33 +22,6 @@ void King::clearMemory() {
 	}
 }
 
-std::vector<std::vector<Character*>> King::copyBoard(std::vector<std::vector<Character*>> input) {
-	std::vector<std::vector<Character*>> copy(8, std::vector<Character*>(8));
-	/*
-	Player copyPlayer_white = Player();
-	copyPlayer_white.assign("copy_1", 1);
-	Player copyPlayer_black = Player();
-	copyPlayer_black.assign("copy_2", 2);
-
-	for (int i = 0; i < input.size(); i++) {
-		for (int j = 0; j < input[0].size(); j++) {
-			if (input[i][j]) {
-				if (input[i][j]->getPlayer() == 1) {
-					copy = copyPlayer_white.copy_putChars(copy, i, j, input[i][j]);
-				}
-			}			
-			
-			if (input[i][j])
-				blueprint[i][j] = input[i][j]->getCopy();
-			else
-				blueprint[i][j] = nullptr;
-			
-		}
-	}
-	*/
-	return copy;
-}
-
 // Check for the possible input move if king is still in chess
 bool King::rescued(std::vector<std::vector<Character*>> board, int act_row, int act_col, std::vector<int> to) {
 	
